@@ -15,19 +15,21 @@
 ENGINX_NAMESPACE_BEGIN
 
 typedef http_parser_url enginx_url;
+using namespace std;
 
 class EnginxURL {
 public:
-  char* schema;
+  string schema;
   unsigned int port;
-  char* host;
-  char* path;
-  char* querystring;
-  char* fragment;
-  char* userinfo;
+  string host;
+  string path;
+  string querystring;
+  string fragment;
+  string userinfo;
   
-  char* absolute_url;
-  EnginxURL(enginx_url url, char* const absolute_url_string);
+  string absolute_url;
+  EnginxURL() {};
+  EnginxURL(string const absolute_url_string);
   ~EnginxURL();
 };
 
