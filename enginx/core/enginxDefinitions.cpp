@@ -9,7 +9,7 @@
 #include "enginxDefinitions.h"
 
 int const ENGINX_ERROR_BAD_PARAMETER = 10400;
-std::string const ENGINX_CONFIG_FIELD_Server_name = "server_name";
+const char* ENGINX_CONFIG_FIELD_SERVER_NAME = "server_name";
 
 ENGINX_NAMESPACE_BEGIN
 

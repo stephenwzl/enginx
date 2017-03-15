@@ -10,6 +10,8 @@
 		6CE2B2201E790FC20020F147 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B21F1E790FC20020F147 /* main.cpp */; };
 		6CE2B2521E79204C0020F147 /* enginxInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B2511E79204C0020F147 /* enginxInstance.cpp */; };
 		6CE2B27C1E7931CB0020F147 /* enginxDefinitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B27B1E7931CB0020F147 /* enginxDefinitions.cpp */; };
+		6CE2B2801E793EE00020F147 /* enginxWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B27E1E793EE00020F147 /* enginxWorker.cpp */; };
+		6CE2B2841E79455F0020F147 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B2821E79455F0020F147 /* http_parser.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +69,10 @@
 		6CE2B27A1E7925630020F147 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
 		6CE2B27B1E7931CB0020F147 /* enginxDefinitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enginxDefinitions.cpp; path = core/enginxDefinitions.cpp; sourceTree = "<group>"; };
 		6CE2B27D1E79357E0020F147 /* enginx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginx.h; path = core/enginx.h; sourceTree = "<group>"; };
+		6CE2B27E1E793EE00020F147 /* enginxWorker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enginxWorker.cpp; path = core/enginxWorker.cpp; sourceTree = "<group>"; };
+		6CE2B27F1E793EE00020F147 /* enginxWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginxWorker.h; path = core/enginxWorker.h; sourceTree = "<group>"; };
+		6CE2B2821E79455F0020F147 /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
+		6CE2B2831E79455F0020F147 /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,8 @@
 				6CE2B2501E791B5F0020F147 /* enginxDefinitions.h */,
 				6CE2B27B1E7931CB0020F147 /* enginxDefinitions.cpp */,
 				6CE2B27D1E79357E0020F147 /* enginx.h */,
+				6CE2B27F1E793EE00020F147 /* enginxWorker.h */,
+				6CE2B27E1E793EE00020F147 /* enginxWorker.cpp */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -121,6 +129,7 @@
 		6CE2B2531E7925630020F147 /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				6CE2B2811E79455F0020F147 /* http_parser */,
 				6CE2B2541E7925630020F147 /* rapidjson */,
 			);
 			name = vendor;
@@ -193,6 +202,15 @@
 			path = msinttypes;
 			sourceTree = "<group>";
 		};
+		6CE2B2811E79455F0020F147 /* http_parser */ = {
+			isa = PBXGroup;
+			children = (
+				6CE2B2821E79455F0020F147 /* http_parser.c */,
+				6CE2B2831E79455F0020F147 /* http_parser.h */,
+			);
+			path = http_parser;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -251,6 +269,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CE2B2801E793EE00020F147 /* enginxWorker.cpp in Sources */,
+				6CE2B2841E79455F0020F147 /* http_parser.c in Sources */,
 				6CE2B2201E790FC20020F147 /* main.cpp in Sources */,
 				6CE2B2521E79204C0020F147 /* enginxInstance.cpp in Sources */,
 				6CE2B27C1E7931CB0020F147 /* enginxDefinitions.cpp in Sources */,

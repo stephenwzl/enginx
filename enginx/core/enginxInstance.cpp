@@ -27,7 +27,7 @@ bool EnginxInstance::test() {
     if (!itr->IsObject()) {
       return false;
     }
-    if (!itr->HasMember(ENGINX_CONFIG_FIELD_Server_name.c_str())) {
+    if (!itr->HasMember(ENGINX_CONFIG_FIELD_SERVER_NAME)) {
       return false;
     }
   }

@@ -25,7 +25,7 @@
 #define ENGINX_NAMESPACE_END }
 #endif
 extern int const ENGINX_ERROR_BAD_PARAMETER;
-extern std::string const ENGINX_CONFIG_FIELD_Server_name;
+extern const char* ENGINX_CONFIG_FIELD_SERVER_NAME;
 
 ENGINX_NAMESPACE_BEGIN
 class EnginxError {
