@@ -7,9 +7,15 @@
 //
 
 #include <iostream>
+#include "core/enginxInstance.h"
+#include "core/enginx.h"
+
+using namespace enginx;
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-  // insert code here...
-  std::cout << "Hello, World!\n";
-    return 0;
+  const char *json = "[{\"server_name\":\"enginx\"}]";
+  EnginxInstance::Instance().load(json);
+  bool tested = EnginxInstance::Instance().test();
+  cout<<tested<<endl;
 }
