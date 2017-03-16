@@ -45,12 +45,12 @@ public:
    */
   void reload();
   
+  rapidjson::Document current_worker_config;
 private:
   EnginxInstance();                            // ctor hidden
   ~EnginxInstance();                           // dtor hidden
   std::string current_config;
   std::string testing_config;
-  rapidjson::Document current_worker_config;
   rapidjson::Document testing_worker_config;
 };
 

@@ -11,7 +11,7 @@
 
 #include "enginxInstance.h"
 #include "vendor/http_parser/http_parser.h"
-
+#include <vector>
 ENGINX_NAMESPACE_BEGIN
 
 typedef http_parser_url enginx_url;
@@ -29,15 +29,19 @@ public:
   
   string absolute_url;
   EnginxURL() {};
+  bool isValid();
   EnginxURL(string const absolute_url_string);
   ~EnginxURL();
 };
 
 class EnginxWorker {
 public:
-  EnginxWorker(char* const url);
+  EnginxWorker(string absolute_url_string);
+  string rewirted_url;
 private:
-  enginx_url uri;
+  EnginxURL current_url;
+  rapidjson::Document worker_config;
+  rapidjson::Document response_servers;
 };
 
 ENGINX_NAMESPACE_END

@@ -11,11 +11,12 @@
 
 #include "enginxDefinitions.h"
 #include "enginxInstance.h"
+#include "enginxWorker.h"
 
 ENGINX_NAMESPACE_BEGIN
 class Enginx {
 public:
-  static bool load(char* const config, EnginxError& error) {
+  static bool load(const char* config, EnginxError& error) {
     EnginxInstance::Instance().load(config);
     if (EnginxInstance::Instance().test()) {
       EnginxInstance::Instance().reload();
@@ -32,9 +33,9 @@ public:
    @param absolute_url the absolute url includes scheme, host, path, fragment querystring
    @return rewrited url
    */
-  static char* const transfer(char* const absolute_url) {
-    std::string a = "";
-    return (char *)a.c_str();
+  static const char*  transfer(const char* absolute_url) {
+    EnginxWorker work(absolute_url);
+    return work.rewirted_url.c_str();
   }
 };
 ENGINX_NAMESPACE_END

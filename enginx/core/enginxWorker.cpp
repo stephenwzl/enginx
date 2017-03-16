@@ -7,6 +7,7 @@
 //
 
 #include "enginxWorker.h"
+#include "enginxServerProcessor.h"
 
 ENGINX_NAMESPACE_BEGIN
 
@@ -44,30 +45,99 @@ EnginxURL::EnginxURL(string const absolute_url_string) {
       case UF_PORT:
       {
         string portstr = absolute_url.substr(url.field_data[i].off, url.field_data[i].len);
-        if (portstr.length() == 0) {
-          if (host.compare("http") == 0) {
-            port = 80;
-          } else if (host.compare("https")) {
-            port = 443;
-          }
-        } else {
-          port = atoi(portstr.c_str());
-        }
+        port = atoi(portstr.c_str());
         break;
       }
       case UF_QUERY:
-      
+        querystring = absolute_url.substr(url.field_data[i].off, url.field_data[i].len);
         break;
+      case UF_USERINFO:
+        userinfo = absolute_url.substr(url.field_data[i].off, url.field_data[i].len);
+        break;
+      case UF_FRAGMENT:
+        fragment = absolute_url.substr(url.field_data[i].off, url.field_data[i].len);
+        break;
+      default:
+        break;
+    }
+    
+  }
+//  if port string is undefined
+  if (!FieldValid(url.field_data[UF_PORT].off, url.field_data[UF_PORT].len, len)) {
+    if (schema.compare("http") == 0) {
+      port = 80;
+    } else if (schema.compare("https") == 0) {
+      port = 443;
     }
   }
 }
 
+bool EnginxURL::isValid() {
+  return schema.length() > 0 && host.length() > 0;
+}
+
 EnginxURL::~EnginxURL() {}
 
+using namespace rapidjson;
+bool is_server_schema_match(Value& server, EnginxURL const url) {
+  bool has_schema = server.HasMember(ENGINX_CONFIG_FIELD_SCHEMA);
+  if (!has_schema) {
+    return true;
+  }
+  string schema = server[ENGINX_CONFIG_FIELD_SCHEMA].GetString();
+  return schema.compare(url.schema) == 0;
+}
 
-EnginxWorker::EnginxWorker(char* const url) {
-  http_parser_parse_url(url, strlen(url), 0, &uri);
-  
+bool is_server_port_match(Value& server, EnginxURL const url) {
+  bool has_port = server.HasMember(ENGINX_CONFIG_FIELD_PORT);
+  if (!has_port) {
+    return true;
+  }
+  unsigned int port = server[ENGINX_CONFIG_FIELD_PORT].GetUint();
+  return port == url.port;
+}
+
+bool is_server_can_response(Value& server, EnginxURL const url) {
+  if (!server.HasMember(ENGINX_CONFIG_FIELD_SERVER_NAME)) {
+    return false;
+  }
+  string server_name = server[ENGINX_CONFIG_FIELD_SERVER_NAME].GetString();
+  if (server_name.compare(ENGINX_CONFIG_FIELD_DEF_DEFAULT_SERVER) == 0 ||
+      server_name.compare(ENGINX_CONFIG_FIELD_DEF_SERVER_WILD) == 0) {
+    return true && is_server_schema_match(server, url) && is_server_port_match(server, url);
+  }
+  if (server_name.compare(url.host) == 0) {
+    return true && is_server_schema_match(server, url) && is_server_port_match(server, url);
+  }
+  return false;
+}
+
+EnginxWorker::EnginxWorker(string absolute_url_string) {
+  rewirted_url = ""; //default url
+  current_url = EnginxURL(absolute_url_string);
+  if (!current_url.isValid()) {
+    //early return if invalid url
+    return;
+  }
+  Document::AllocatorType& allocator = worker_config.GetAllocator();
+  worker_config.CopyFrom(EnginxInstance::Instance().current_worker_config, allocator);
+  Document::AllocatorType& r_allocator = response_servers.GetAllocator();
+  response_servers.SetArray();
+  for (Value::ValueIterator itr = worker_config.Begin(); itr < worker_config.End(); ++itr) {
+    if (!itr->IsObject()) {
+      continue;
+    }
+    if (is_server_can_response(*itr, current_url)) {
+      response_servers.PushBack(*itr, r_allocator);
+    }
+  }
+  if (!response_servers.IsArray() || response_servers.Size() == 0) {
+    rewirted_url = current_url.absolute_url;
+  } else {
+    //TODO:
+    EnginxServerProcessor s(response_servers[0], current_url);
+    rewirted_url = s.rewrited_url;
+  }
 }
 
 ENGINX_NAMESPACE_END
