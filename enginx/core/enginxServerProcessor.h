@@ -31,6 +31,7 @@ private:
   bool resolveInstruction(string instruction);
   bool execInstruction(vector<string>& parts);
   void compileTemplateString(string& template_str);
+  void compileInternalVars(vector<string>& parts);
 };
 
 ENGINX_NAMESPACE_END

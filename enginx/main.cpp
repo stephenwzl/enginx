@@ -13,9 +13,21 @@ using namespace enginx;
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-//  string json = "[{\"server_name\":\"web\"}]";
-//  EnginxError error;
-//  bool tested = Enginx::load(json.c_str(), error);
-//  cout << tested << endl;
-//  cout << Enginx::transfer("eleme://web?url") << endl;
+  string json = "[\
+  {\
+    \"server_name\":\"baidu.com\", \
+    \"action\":[\
+      \"decode $query_string\"\
+      ],\
+    \"location\":{\
+        \"/\":[\
+          \"proxy_pass https://stephenw.cc$request_uri\"\
+        ]\
+      }\
+    }\
+  ]";
+  EnginxError error;
+  bool tested = Enginx::load(json.c_str(), error);
+  cout << tested << endl;
+  cout << Enginx::transfer("http://baidu.com/path?url=%e5%93%88%e5%93%88") << endl;
 }

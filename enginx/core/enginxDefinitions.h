@@ -32,6 +32,7 @@ extern const char* ENGINX_CONFIG_FIELD_SERVER_NAME;
 extern const char* ENGINX_CONFIG_FIELD_SCHEMA;
 extern const char* ENGINX_CONFIG_FIELD_PORT;
 extern const char* ENGINX_CONFIG_FIELD_ACTION;
+extern const char* ENGINX_CONFIG_FIELD_LOCATION;
 
 //default value def
 extern const char* ENGINX_CONFIG_FIELD_DEF_DEFAULT_SERVER;
@@ -48,9 +49,17 @@ extern const char* ENGINX_CONFIG_VAR_DEF_FRAGMENT;
 //action instruction def
 extern const char* ENGINX_CONFIG_INSTRUCTION_DECODE;
 extern const char* ENGINX_CONFIG_INSTRUCTION_ENCODE;
+extern const char* ENGINX_CONFIG_INSTRUCTION_REWRITE;
 extern const char* ENGINX_CONFIG_INSTRUCTION_PROXY_PASS;
 extern const char* ENGINX_CONFIG_INSTRUCTION_RETURN;
 extern const char* ENGINX_CONFIG_INSTRUCTION_TEMPORARILY;
+
+//location operators
+extern const char* ENGINX_CONFIG_OPERATOR_EQUAL;
+extern const char* ENGINX_CONFIG_OPERATOR_NORMAL_HEAD;
+extern const char* ENGINX_CONFIG_OPERATOR_REG_NO_CASE_SENSITIVE;
+extern const char* ENGINX_CONFIG_OPERATOR_REG_CASE_SENSITIVE;
+extern const char* ENGINX_CONFIG_OPERATOR_WILD_COMPARE;
 
 ENGINX_NAMESPACE_BEGIN
 class EnginxError {
@@ -61,20 +70,10 @@ public:
   EnginxError() {};
 };
 
-void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c) {
-  std::string::size_type pos1, pos2;
-  pos2 = s.find(c);
-  pos1 = 0;
-  while(std::string::npos != pos2)
-  {
-    v.push_back(s.substr(pos1, pos2-pos1));
-    
-    pos1 = pos2 + c.size();
-    pos2 = s.find(c, pos1);
-  }
-  if(pos1 != s.length())
-    v.push_back(s.substr(pos1));
-}
+void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c);
+
+std::string UrlEncode(const std::string& str);
+std::string UrlDecode(const std::string& str);
 
 ENGINX_NAMESPACE_END
 

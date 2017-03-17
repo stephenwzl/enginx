@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C194F7F1E7BB9D0006BF857 /* enginxLocationProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C194F7E1E7BB9D0006BF857 /* enginxLocationProcessor.cpp */; };
 		6C8631151E7A7263005C3635 /* enginxServerProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8631141E7A7263005C3635 /* enginxServerProcessor.cpp */; };
 		6CE2B2201E790FC20020F147 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B21F1E790FC20020F147 /* main.cpp */; };
 		6CE2B2521E79204C0020F147 /* enginxInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B2511E79204C0020F147 /* enginxInstance.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C194F7D1E7BB1C4006BF857 /* enginxLocationProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginxLocationProcessor.h; path = core/enginxLocationProcessor.h; sourceTree = "<group>"; };
+		6C194F7E1E7BB9D0006BF857 /* enginxLocationProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enginxLocationProcessor.cpp; path = core/enginxLocationProcessor.cpp; sourceTree = "<group>"; };
 		6C8631131E7A5E5B005C3635 /* enginxServerProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginxServerProcessor.h; path = core/enginxServerProcessor.h; sourceTree = "<group>"; };
 		6C8631141E7A7263005C3635 /* enginxServerProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enginxServerProcessor.cpp; path = core/enginxServerProcessor.cpp; sourceTree = "<group>"; };
 		6CE2B21C1E790FC20020F147 /* enginx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = enginx; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +130,8 @@
 				6CE2B27E1E793EE00020F147 /* enginxWorker.cpp */,
 				6C8631131E7A5E5B005C3635 /* enginxServerProcessor.h */,
 				6C8631141E7A7263005C3635 /* enginxServerProcessor.cpp */,
+				6C194F7D1E7BB1C4006BF857 /* enginxLocationProcessor.h */,
+				6C194F7E1E7BB9D0006BF857 /* enginxLocationProcessor.cpp */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 				6CE2B2201E790FC20020F147 /* main.cpp in Sources */,
 				6CE2B2521E79204C0020F147 /* enginxInstance.cpp in Sources */,
 				6CE2B27C1E7931CB0020F147 /* enginxDefinitions.cpp in Sources */,
+				6C194F7F1E7BB9D0006BF857 /* enginxLocationProcessor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
