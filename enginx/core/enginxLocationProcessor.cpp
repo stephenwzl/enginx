@@ -31,7 +31,7 @@ EnginxLocation::EnginxLocation(rapidjson::Value& location_config,map<string, str
     }
   }
   if (!is_terminated) {
-    string after_url = server_vars[ENGINX_CONFIG_FIELD_SCHEMA] + "://";
+    string after_url = server_vars[ENGINX_CONFIG_VAR_DEF_SCHEME] + "://";
     if (url.port != 80 && url.schema.compare("http") == 0) {
       std::stringstream s;
       s<<url.port;
@@ -54,17 +54,19 @@ bool EnginxLocation::resolveInstruction(string instruction) {
       computeInternalVars(matches);
       string template_str = parts[2];
       compileTemplates(template_str);
-      server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = template_str;
+      current_url.path = template_str;
+      server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = current_url.request_uri();
     }
   }
   if (parts.size() == 2) {
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS)) {
+    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS) == 0) {
       string after_url = parts[1];
+      after_url += ENGINX_CONFIG_VAR_DEF_REQUEST_URI;
       compileTemplates(after_url);
       rewrited_url = after_url;
       return false;
     }
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_RETURN)) {
+    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_RETURN) == 0) {
       string after_url = parts[1];
       compileTemplates(after_url);
       rewrited_url = after_url;
@@ -156,15 +158,16 @@ bool is_location_matching(string operation, string request_path, bool* search_ne
       *search_next = false;
       return parts[1].compare(request_path) == 0;
     }
-    if (op.compare(ENGINX_CONFIG_OPERATOR_NORMAL_HEAD)) {
-      auto res = std::mismatch(op.begin(), op.end(), request_path.begin());
-      return res.first == op.end();
+    if (op.compare(ENGINX_CONFIG_OPERATOR_NORMAL_HEAD) == 0) {
+      string rule = parts[1];
+      auto res = std::mismatch(rule.begin(), rule.end(), request_path.begin());
+      return res.first == rule.end();
     }
-    if (op.compare(ENGINX_CONFIG_OPERATOR_REG_CASE_SENSITIVE)) {
+    if (op.compare(ENGINX_CONFIG_OPERATOR_REG_CASE_SENSITIVE) == 0) {
       std::regex mode(parts[1]);
       return std::regex_match(request_path, mode);
     }
-    if (op.compare(ENGINX_CONFIG_OPERATOR_REG_NO_CASE_SENSITIVE)) {
+    if (op.compare(ENGINX_CONFIG_OPERATOR_REG_NO_CASE_SENSITIVE) == 0) {
       std::regex mode(parts[1], std::regex::icase);
       return std::regex_match(request_path, mode);
     }

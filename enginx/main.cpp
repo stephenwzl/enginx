@@ -12,6 +12,20 @@
 using namespace enginx;
 using namespace std;
 
+void test_location_equal() {
+  string rewrited;
+  Enginx::transfer("http://baidu.com/path?url=%e5%93%88%e5%93%88", rewrited);
+  cout<<"test location equal:"<<endl;
+  cout<< rewrited<<endl;
+}
+
+void test_rewrite() {
+  string rewrited;
+  Enginx::transfer("http://baidu.com/api/auth", rewrited);
+  cout<<"test rewrite:"<<endl;
+  cout<< rewrited<<endl;
+}
+
 int main(int argc, const char * argv[]) {
   string json = "[\
   {\
@@ -21,15 +35,21 @@ int main(int argc, const char * argv[]) {
       ],\
     \"location\":{\
         \"/\":[\
-          \"proxy_pass https://stephenw.cc$request_uri\"\
+          \"return http://stephenw.cc\"\
+        ],\
+        \"= /path\":[\
+          \"proxy_pass http://google.com\"    \
+        ],\
+        \"^~ /api\":[\
+          \"rewrite ^/api/(.*)$ /$1\",\
+          \"proxy_pass http://stephenw.cc\"\
         ]\
       }\
     }\
   ]";
   EnginxError error;
-  bool tested = Enginx::load(json.c_str(), error);
-  cout << tested << endl;
-  string url;
-  Enginx::transfer("http://baidu.com/path?url=%e5%93%88%e5%93%88", url);
-  cout<<url<<endl;
+  Enginx::load(json.c_str(), error);
+  
+  test_location_equal();
+  test_rewrite();
 }

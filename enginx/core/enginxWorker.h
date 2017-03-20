@@ -30,6 +30,7 @@ public:
   string absolute_url;
   EnginxURL() {};
   bool isValid();
+  string request_uri();
   EnginxURL(string const absolute_url_string);
   ~EnginxURL();
 };

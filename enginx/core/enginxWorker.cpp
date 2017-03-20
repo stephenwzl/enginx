@@ -21,6 +21,17 @@ bool FieldValid(int offset, int len, size_t url_len) {
   return true;
 }
 
+string EnginxURL::request_uri() {
+  string uri = path;
+  if (querystring.length() > 0) {
+    uri += "?"+ querystring;
+  }
+  if (fragment.length() > 0) {
+    uri += "#"+ fragment;
+  }
+  return uri;
+}
+
 EnginxURL::EnginxURL(string const absolute_url_string) {
   port = 80;//default port
   enginx_url url;
@@ -134,7 +145,7 @@ EnginxWorker::EnginxWorker(string absolute_url_string) {
   if (!response_servers.IsArray() || response_servers.Size() == 0) {
     rewirted_url = current_url.absolute_url;
   } else {
-    //TODO:
+    //TODO:process via multi servers
     EnginxServerProcessor s(response_servers[0], current_url);
     rewirted_url = s.rewrited_url;
   }

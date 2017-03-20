@@ -17,7 +17,8 @@ void EnginxServerVarsGenerator(map<string, string>& vars, EnginxURL const url) {
   vars[ENGINX_CONFIG_VAR_DEF_HOST] = url.host;
   vars[ENGINX_CONFIG_VAR_DEF_QUERY_STRING] = url.querystring;
   vars[ENGINX_CONFIG_VAR_DEF_FRAGMENT] = url.fragment;
-  vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = url.path + "?" +url.querystring + url.fragment;
+  EnginxURL uri = url;
+  vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = uri.request_uri();
 }
 
 EnginxServerProcessor::EnginxServerProcessor(Value& server, EnginxURL const url) {
@@ -100,9 +101,9 @@ void EnginxServerProcessor::compileInternalVars(vector<string>& parts) {
   map<string, string>::iterator itr;
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
     if (itr->first.compare(parts[1]) == 0) {
-      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE)) {
+      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
         itr->second = UrlEncode(itr->second);
-      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE)) {
+      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
         itr->second = UrlDecode(itr->second);
       }
     }

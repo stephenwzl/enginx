@@ -7,7 +7,6 @@
 //
 
 #include "enginxDefinitions.h"
-#include <assert.h>
 
 int const ENGINX_ERROR_BAD_PARAMETER = 10400;
 const char* ENGINX_CONFIG_FIELD_SERVER_NAME = "server_name";
@@ -24,6 +23,7 @@ const char* ENGINX_CONFIG_VAR_DEF_HOST = "$host";
 const char* ENGINX_CONFIG_VAR_DEF_SCHEME = "$scheme";
 const char* ENGINX_CONFIG_VAR_DEF_QUERY_STRING = "$query_string";
 const char* ENGINX_CONFIG_VAR_DEF_FRAGMENT = "$fragment";
+const char* ENGINX_CONFIG_VAR_DEF_PATH = "$path";
 
 const char* ENGINX_CONFIG_INSTRUCTION_DECODE = "decode";
 const char* ENGINX_CONFIG_INSTRUCTION_ENCODE = "encode";
@@ -72,7 +72,9 @@ unsigned char FromHex(unsigned char x)
   if (x >= 'A' && x <= 'Z') y = x - 'A' + 10;
   else if (x >= 'a' && x <= 'z') y = x - 'a' + 10;
   else if (x >= '0' && x <= '9') y = x - '0';
-  else assert(0);
+//  else assert(0);
+//  asserts will call crash in Android
+  else y = '0';
   return y;
 }
 
@@ -109,7 +111,11 @@ std::string UrlDecode(const std::string& str)
     if (str[i] == '+') strTemp += ' ';
     else if (str[i] == '%')
     {
-      assert(i + 2 < length);
+//      assert(i + 2 < length);
+//  asserts will call crash in Android
+      if (i + 2 >= length) {
+        break;
+      }
       unsigned char high = FromHex((unsigned char)str[++i]);
       unsigned char low = FromHex((unsigned char)str[++i]);
       strTemp += high*16 + low;
