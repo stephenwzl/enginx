@@ -34,9 +34,9 @@
 		6C811D601E7F892A00240300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C811D5E1E7F892A00240300 /* Main.storyboard */; };
 		6C811D621E7F892A00240300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C811D611E7F892A00240300 /* Assets.xcassets */; };
 		6C811D651E7F892A00240300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C811D631E7F892A00240300 /* LaunchScreen.storyboard */; };
-		6C811D6D1E7F89F700240300 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811D6C1E7F89F700240300 /* libstdc++.tbd */; };
 		6C811D6E1E7F8A8B00240300 /* enginxCocoaTouch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C811D041E7F88D100240300 /* enginxCocoaTouch.h */; };
-		6C811D771E7F928100240300 /* libenginxCocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811D761E7F928100240300 /* libenginxCocoaTouch.a */; };
+		6C811DA01E7FAE5E00240300 /* libenginxCocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811D011E7F88D100240300 /* libenginxCocoaTouch.a */; };
+		6C811DA21E7FAE6800240300 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811DA11E7FAE6800240300 /* libstdc++.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -114,8 +114,7 @@
 		6C811D611E7F892A00240300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C811D641E7F892A00240300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C811D661E7F892A00240300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C811D6C1E7F89F700240300 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
-		6C811D761E7F928100240300 /* libenginxCocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libenginxCocoaTouch.a; path = enginxCocoaTouchLib/libenginxCocoaTouch.a; sourceTree = "<group>"; };
+		6C811DA11E7FAE6800240300 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,8 +129,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C811D6D1E7F89F700240300 /* libstdc++.tbd in Frameworks */,
-				6C811D771E7F928100240300 /* libenginxCocoaTouch.a in Frameworks */,
+				6C811DA21E7FAE6800240300 /* libstdc++.tbd in Frameworks */,
+				6C811DA01E7FAE5E00240300 /* libenginxCocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,8 +297,7 @@
 		6C811D6B1E7F89F700240300 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C811D761E7F928100240300 /* libenginxCocoaTouch.a */,
-				6C811D6C1E7F89F700240300 /* libstdc++.tbd */,
+				6C811DA11E7FAE6800240300 /* libstdc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -555,6 +553,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7SVED42PVK;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -609,6 +608,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7SVED42PVK;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -618,6 +618,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -640,6 +641,7 @@
 				6C811D0C1E7F88D100240300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6C811D671E7F892A00240300 /* Build configuration list for PBXNativeTarget "enginxDemo" */ = {
 			isa = XCConfigurationList;
@@ -648,6 +650,7 @@
 				6C811D691E7F892A00240300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6C811D721E7F8F9800240300 /* Build configuration list for PBXAggregateTarget "enginxUniversal" */ = {
 			isa = XCConfigurationList;
@@ -656,6 +659,7 @@
 				6C811D741E7F8F9800240300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

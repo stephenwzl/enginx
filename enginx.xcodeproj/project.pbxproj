@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6C194F7F1E7BB9D0006BF857 /* enginxLocationProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C194F7E1E7BB9D0006BF857 /* enginxLocationProcessor.cpp */; };
-		6C811CD21E7F805500240300 /* enginxiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C811CD11E7F805500240300 /* enginxiOS.mm */; };
-		6C811CD31E7F805500240300 /* enginxiOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C811CD01E7F805500240300 /* enginxiOS.h */; };
 		6C8631151E7A7263005C3635 /* enginxServerProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8631141E7A7263005C3635 /* enginxServerProcessor.cpp */; };
 		6CE2B2201E790FC20020F147 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B21F1E790FC20020F147 /* main.cpp */; };
 		6CE2B2521E79204C0020F147 /* enginxInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2B2511E79204C0020F147 /* enginxInstance.cpp */; };
@@ -19,16 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6C811CCC1E7F805500240300 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "$(SRCROOT)/../enginx/core";
-			dstSubfolderSpec = 16;
-			files = (
-				6C811CD31E7F805500240300 /* enginxiOS.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6CE2B21A1E790FC20020F147 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -43,18 +31,6 @@
 /* Begin PBXFileReference section */
 		6C194F7D1E7BB1C4006BF857 /* enginxLocationProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginxLocationProcessor.h; path = core/enginxLocationProcessor.h; sourceTree = "<group>"; };
 		6C194F7E1E7BB9D0006BF857 /* enginxLocationProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enginxLocationProcessor.cpp; path = core/enginxLocationProcessor.cpp; sourceTree = "<group>"; };
-		6C811CCE1E7F805500240300 /* libenginxiOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libenginxiOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C811CD01E7F805500240300 /* enginxiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = enginxiOS.h; sourceTree = "<group>"; };
-		6C811CD11E7F805500240300 /* enginxiOS.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = enginxiOS.mm; sourceTree = "<group>"; };
-		6C811CDE1E7F845000240300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6C811CE01E7F845000240300 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6C811CE11E7F845000240300 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6C811CE31E7F845000240300 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6C811CE41E7F845000240300 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6C811CE71E7F845000240300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6C811CE91E7F845000240300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6C811CEC1E7F845000240300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6C811CEE1E7F845000240300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C811CF41E7F853D00240300 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		6C8631131E7A5E5B005C3635 /* enginxServerProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginxServerProcessor.h; path = core/enginxServerProcessor.h; sourceTree = "<group>"; };
 		6C8631141E7A7263005C3635 /* enginxServerProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enginxServerProcessor.cpp; path = core/enginxServerProcessor.cpp; sourceTree = "<group>"; };
@@ -107,13 +83,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6C811CCB1E7F805500240300 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6CE2B2191E790FC20020F147 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,39 +93,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C811CCF1E7F805500240300 /* enginxiOS */ = {
-			isa = PBXGroup;
-			children = (
-				6C811CD01E7F805500240300 /* enginxiOS.h */,
-				6C811CD11E7F805500240300 /* enginxiOS.mm */,
-			);
-			path = enginxiOS;
-			sourceTree = "<group>";
-		};
-		6C811CDC1E7F845000240300 /* enginxiOS-demo */ = {
-			isa = PBXGroup;
-			children = (
-				6C811CE01E7F845000240300 /* AppDelegate.h */,
-				6C811CE11E7F845000240300 /* AppDelegate.m */,
-				6C811CE31E7F845000240300 /* ViewController.h */,
-				6C811CE41E7F845000240300 /* ViewController.m */,
-				6C811CE61E7F845000240300 /* Main.storyboard */,
-				6C811CE91E7F845000240300 /* Assets.xcassets */,
-				6C811CEB1E7F845000240300 /* LaunchScreen.storyboard */,
-				6C811CEE1E7F845000240300 /* Info.plist */,
-				6C811CDD1E7F845000240300 /* Supporting Files */,
-			);
-			path = "enginxiOS-demo";
-			sourceTree = "<group>";
-		};
-		6C811CDD1E7F845000240300 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6C811CDE1E7F845000240300 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		6C811CF31E7F853C00240300 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,8 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				6CE2B21E1E790FC20020F147 /* enginx */,
-				6C811CCF1E7F805500240300 /* enginxiOS */,
-				6C811CDC1E7F845000240300 /* enginxiOS-demo */,
 				6CE2B21D1E790FC20020F147 /* Products */,
 				6C811CF31E7F853C00240300 /* Frameworks */,
 			);
@@ -180,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				6CE2B21C1E790FC20020F147 /* enginx */,
-				6C811CCE1E7F805500240300 /* libenginxiOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -301,23 +234,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6C811CCD1E7F805500240300 /* enginxiOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6C811CD61E7F805500240300 /* Build configuration list for PBXNativeTarget "enginxiOS" */;
-			buildPhases = (
-				6C811CCA1E7F805500240300 /* Sources */,
-				6C811CCB1E7F805500240300 /* Frameworks */,
-				6C811CCC1E7F805500240300 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = enginxiOS;
-			productName = enginxiOS;
-			productReference = 6C811CCE1E7F805500240300 /* libenginxiOS.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		6CE2B21B1E790FC20020F147 /* enginx */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6CE2B2231E790FC20020F147 /* Build configuration list for PBXNativeTarget "enginx" */;
@@ -344,11 +260,6 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = stephenw.cc;
 				TargetAttributes = {
-					6C811CCD1E7F805500240300 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7SVED42PVK;
-						ProvisioningStyle = Automatic;
-					};
 					6CE2B21B1E790FC20020F147 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 7SVED42PVK;
@@ -370,20 +281,11 @@
 			projectRoot = "";
 			targets = (
 				6CE2B21B1E790FC20020F147 /* enginx */,
-				6C811CCD1E7F805500240300 /* enginxiOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6C811CCA1E7F805500240300 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6C811CD21E7F805500240300 /* enginxiOS.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6CE2B2181E790FC20020F147 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,57 +302,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		6C811CE61E7F845000240300 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6C811CE71E7F845000240300 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		6C811CEB1E7F845000240300 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6C811CEC1E7F845000240300 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		6C811CD41E7F805500240300 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7SVED42PVK;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SYMROOT = build;
-			};
-			name = Debug;
-		};
-		6C811CD51E7F805500240300 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7SVED42PVK;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SYMROOT = build;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		6CE2B2211E790FC20020F147 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -557,14 +409,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6C811CD61E7F805500240300 /* Build configuration list for PBXNativeTarget "enginxiOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6C811CD41E7F805500240300 /* Debug */,
-				6C811CD51E7F805500240300 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
 		6CE2B2171E790FC20020F147 /* Build configuration list for PBXProject "enginx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
