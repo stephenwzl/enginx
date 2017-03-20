@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		6C811D711E7F8F9800240300 /* enginxUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6C811D721E7F8F9800240300 /* Build configuration list for PBXAggregateTarget "enginxUniversal" */;
+			buildPhases = (
+				6C811D751E7F8FB100240300 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = enginxUniversal;
+			productName = enginxUniversal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		6C811D061E7F88D100240300 /* enginxCocoaTouch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C811D051E7F88D100240300 /* enginxCocoaTouch.mm */; };
 		6C811D441E7F88E600240300 /* enginxDefinitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C811D0F1E7F88E500240300 /* enginxDefinitions.cpp */; };
@@ -20,9 +34,9 @@
 		6C811D601E7F892A00240300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C811D5E1E7F892A00240300 /* Main.storyboard */; };
 		6C811D621E7F892A00240300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C811D611E7F892A00240300 /* Assets.xcassets */; };
 		6C811D651E7F892A00240300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C811D631E7F892A00240300 /* LaunchScreen.storyboard */; };
-		6C811D6A1E7F893D00240300 /* libenginxCocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811D011E7F88D100240300 /* libenginxCocoaTouch.a */; };
 		6C811D6D1E7F89F700240300 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811D6C1E7F89F700240300 /* libstdc++.tbd */; };
 		6C811D6E1E7F8A8B00240300 /* enginxCocoaTouch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C811D041E7F88D100240300 /* enginxCocoaTouch.h */; };
+		6C811D771E7F928100240300 /* libenginxCocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C811D761E7F928100240300 /* libenginxCocoaTouch.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +115,7 @@
 		6C811D641E7F892A00240300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C811D661E7F892A00240300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C811D6C1E7F89F700240300 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		6C811D761E7F928100240300 /* libenginxCocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libenginxCocoaTouch.a; path = enginxCocoaTouchLib/libenginxCocoaTouch.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C811D6D1E7F89F700240300 /* libstdc++.tbd in Frameworks */,
-				6C811D6A1E7F893D00240300 /* libenginxCocoaTouch.a in Frameworks */,
+				6C811D771E7F928100240300 /* libenginxCocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +298,7 @@
 		6C811D6B1E7F89F700240300 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6C811D761E7F928100240300 /* libenginxCocoaTouch.a */,
 				6C811D6C1E7F89F700240300 /* libstdc++.tbd */,
 			);
 			name = Frameworks;
@@ -344,6 +360,11 @@
 						DevelopmentTeam = 7SVED42PVK;
 						ProvisioningStyle = Automatic;
 					};
+					6C811D711E7F8F9800240300 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 7SVED42PVK;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 6C811CFC1E7F88D100240300 /* Build configuration list for PBXProject "enginxCocoaTouch" */;
@@ -361,6 +382,7 @@
 			targets = (
 				6C811D001E7F88D100240300 /* enginxCocoaTouch */,
 				6C811D521E7F892A00240300 /* enginxDemo */,
+				6C811D711E7F8F9800240300 /* enginxUniversal */,
 			);
 		};
 /* End PBXProject section */
@@ -377,6 +399,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C811D751E7F8FB100240300 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target ${PROJECT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\"\nBUILD_ROOT=\"${BUILD_ROOT}\" xcodebuild -target ${PROJECT_NAME} -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6C811CFD1E7F88D100240300 /* Sources */ = {
@@ -540,6 +578,10 @@
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				INFOPLIST_FILE = enginxDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/enginxCocoaTouchLib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.stephenw.enginxDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -553,9 +595,29 @@
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				INFOPLIST_FILE = enginxDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/enginxCocoaTouchLib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.stephenw.enginxDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6C811D731E7F8F9800240300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 7SVED42PVK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6C811D741E7F8F9800240300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 7SVED42PVK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -584,6 +646,14 @@
 			buildConfigurations = (
 				6C811D681E7F892A00240300 /* Debug */,
 				6C811D691E7F892A00240300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6C811D721E7F8F9800240300 /* Build configuration list for PBXAggregateTarget "enginxUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C811D731E7F8F9800240300 /* Debug */,
+				6C811D741E7F8F9800240300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
