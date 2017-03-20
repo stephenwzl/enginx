@@ -31,11 +31,10 @@ public:
    rewrite an absolute url to another url
 
    @param absolute_url the absolute url includes scheme, host, path, fragment querystring
-   @return rewrited url
    */
-  static const char*  transfer(const char* absolute_url) {
+  static void  transfer(const char* absolute_url, std::string& rewrited_url) {
     EnginxWorker work(absolute_url);
-    return work.rewirted_url.c_str();
+    rewrited_url = work.rewirted_url;
   }
 };
 ENGINX_NAMESPACE_END

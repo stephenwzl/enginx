@@ -29,5 +29,7 @@ int main(int argc, const char * argv[]) {
   EnginxError error;
   bool tested = Enginx::load(json.c_str(), error);
   cout << tested << endl;
-  cout << Enginx::transfer("http://baidu.com/path?url=%e5%93%88%e5%93%88") << endl;
+  string url;
+  Enginx::transfer("http://baidu.com/path?url=%e5%93%88%e5%93%88", url);
+  cout<<url<<endl;
 }
