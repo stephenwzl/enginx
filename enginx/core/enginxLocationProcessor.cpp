@@ -13,9 +13,10 @@ ENGINX_NAMESPACE_BEGIN
 using namespace rapidjson;
 using namespace std;
 
-EnginxLocation::EnginxLocation(rapidjson::Value& location_config,map<string, string>& vars, EnginxURL const url) {
+EnginxLocation::EnginxLocation(rapidjson::Value& location_config, map<string, string>& vars, map<string, string> args, EnginxURL const url) {
   this->location_config.CopyFrom(location_config, this->location_config.GetAllocator());
   server_vars = std::map<string, string>(vars);
+  query_args = std::map<string, string>(args);
   current_url = url;
   if (!this->location_config.IsArray()) {
     return;
@@ -72,8 +73,39 @@ bool EnginxLocation::resolveInstruction(string instruction) {
       rewrited_url = after_url;
       return false;
     }
+    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0 ||
+        parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
+      execInternalVarsSubstitution(parts);
+    }
   }
   return true;
+}
+
+void EnginxLocation::execInternalVarsSubstitution(vector<string>& parts) {
+  if (parts.size() != 2) {
+    return;
+  }
+  map<string, string>::iterator itr;
+  //sustitute internal variables
+  for (itr = server_vars.begin(); itr != server_vars.end(); ++itr) {
+    if (itr->first.compare(parts[1]) == 0) {
+      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
+        itr->second = UrlEncode(itr->second);
+      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
+        itr->second = UrlDecode(itr->second);
+      }
+    }
+  }
+  //substitue query variables
+  for (itr = query_args.begin(); itr != query_args.end(); ++itr) {
+    if (itr->first.compare(parts[1]) == 0) {
+      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
+        itr->second = UrlEncode(itr->second);
+      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
+        itr->second = UrlDecode(itr->second);
+      }
+    }
+  }
 }
 
 void EnginxLocation::computeInternalVars(std::smatch m) {
@@ -101,6 +133,12 @@ void EnginxLocation::compileTemplates(string& template_str) {
     }
   }
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
+    string::size_type p = template_str.find(itr->first);
+    if (p != string::npos) {
+      template_str.replace(p, itr->first.length(), itr->second);
+    }
+  }
+  for (itr = query_args.begin(); itr != query_args.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
       template_str.replace(p, itr->first.length(), itr->second);
@@ -175,7 +213,7 @@ bool is_location_matching(string operation, string request_path, bool* search_ne
   return false;
 }
 
-void EnginxLocationDispatcher(EnginxURL const url, rapidjson::Value& locations, map<string, string>& server_vars, string& rewrited_url) {
+void EnginxLocationDispatcher(EnginxURL const url, rapidjson::Value& locations, map<string, string>& server_vars, map<string, string>& query_args, string& rewrited_url) {
   if (!locations.IsObject()) {
     return;
   }
@@ -206,7 +244,7 @@ void EnginxLocationDispatcher(EnginxURL const url, rapidjson::Value& locations, 
   if (!executor.empty()) {
     Value& s = locations[executor.c_str()];
     if (!s.IsNull() && s.IsArray()) {
-      EnginxLocation location_excutor(s, server_vars, url);
+      EnginxLocation location_excutor(s, server_vars, query_args, url);
       if (!location_excutor.rewrited_url.empty()) {
         rewrited_url = location_excutor.rewrited_url;
       }

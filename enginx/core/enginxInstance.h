@@ -38,7 +38,7 @@ public:
 
    @return if test passed, the config can make sense
    */
-  bool test();
+  bool test(EnginxError& error);
   
   /**
    must call reload after test passed

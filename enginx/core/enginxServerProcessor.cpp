@@ -8,6 +8,7 @@
 
 #include "enginxServerProcessor.h"
 #include "enginxLocationProcessor.h"
+
 ENGINX_NAMESPACE_BEGIN
 using namespace rapidjson;
 using namespace std;
@@ -21,12 +22,33 @@ void EnginxServerVarsGenerator(map<string, string>& vars, EnginxURL const url) {
   vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = uri.request_uri();
 }
 
+void EnginxServerQueryArgsGenerator(map<string, string>& args, EnginxURL const url) {
+  if (url.querystring.length() == 0) {
+    return;
+  }
+  vector<string> splits;
+  SplitString(url.querystring, splits, "&");
+  if (splits.size() == 0) return;
+  for (vector<string>::size_type i = 0; i != splits.size() ; ++i) {
+    vector<string> key_value_pair;
+    SplitString(splits[i], key_value_pair, "=");
+    if (key_value_pair.size() != 2) continue;
+    string key = "$arg_" + key_value_pair[0];
+    args[key] = key_value_pair[1];
+  }
+// //  debug method
+//  for (map<string,string>::iterator itr = args.begin(); itr != args.end(); ++itr) {
+//    cout<< itr->first << " : " << itr->second <<endl;
+//  }
+}
+
 EnginxServerProcessor::EnginxServerProcessor(Value& server, EnginxURL const url) {
   can_continue_rewrite = false;
   rewrited_url = url.absolute_url;
   current_url = url;
   current_server.CopyFrom(server, current_server.GetAllocator());
   EnginxServerVarsGenerator(internal_vars, url);
+  EnginxServerQueryArgsGenerator(query_vars, url);
   //resolve and exec instructions
   if (!resolveActions()) { return; };
   if (!server.HasMember(ENGINX_CONFIG_FIELD_LOCATION)) { return; }
@@ -34,7 +56,7 @@ EnginxServerProcessor::EnginxServerProcessor(Value& server, EnginxURL const url)
   if (!locations.IsObject()) {
     return;
   }
-  EnginxLocationDispatcher(url, locations, internal_vars, rewrited_url);
+  EnginxLocationDispatcher(url, locations, internal_vars, query_vars,rewrited_url);
 }
 
 
@@ -86,7 +108,15 @@ bool EnginxServerProcessor::resolveInstruction(std::string instruction) {
 
 void EnginxServerProcessor::compileTemplateString(string& template_str) {
   map<string, string>::iterator itr;
+  //compile internal variables
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
+    string::size_type p = template_str.find(itr->first);
+    if (p != string::npos) {
+      template_str.replace(p, itr->first.length(), itr->second);
+    }
+  }
+  //compile query variables
+  for (itr = query_vars.begin(); itr != query_vars.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
       template_str.replace(p, itr->first.length(), itr->second);
@@ -99,7 +129,18 @@ void EnginxServerProcessor::compileInternalVars(vector<string>& parts) {
     return;
   }
   map<string, string>::iterator itr;
+  //sustitute internal variables
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
+    if (itr->first.compare(parts[1]) == 0) {
+      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
+        itr->second = UrlEncode(itr->second);
+      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
+        itr->second = UrlDecode(itr->second);
+      }
+    }
+  }
+  //substitue query variables
+  for (itr = query_vars.begin(); itr != query_vars.end(); ++itr) {
     if (itr->first.compare(parts[1]) == 0) {
       if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
         itr->second = UrlEncode(itr->second);

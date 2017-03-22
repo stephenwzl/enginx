@@ -18,19 +18,21 @@ using namespace std;
 
 class EnginxLocation {
 public:
-  EnginxLocation(rapidjson::Value& location_config, map<string, string>& vars, EnginxURL const url);
+  EnginxLocation(rapidjson::Value& location_config, map<string, string>& vars, map<string, string> args, EnginxURL const url);
   string rewrited_url;
   EnginxURL current_url;
 private:
   rapidjson::Document location_config;
   std::map<string, string> internal_vars;
   std::map<string, string> server_vars;
+  std::map<string, string> query_args;
   bool resolveInstruction(string instruction);
   void computeInternalVars(std::smatch m);
   void compileTemplates(string& template_str);
+  void execInternalVarsSubstitution(vector<string>& parts);
 };
 
-void EnginxLocationDispatcher(EnginxURL const url, rapidjson::Value& locations, map<string, string>& server_vars, string& rewrited_url);
+void EnginxLocationDispatcher(EnginxURL const url, rapidjson::Value& locations, map<string, string>& server_vars, map<string, string>& query_args, string& rewrited_url);
 
 ENGINX_NAMESPACE_END
 

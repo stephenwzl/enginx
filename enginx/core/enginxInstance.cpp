@@ -18,16 +18,19 @@ void EnginxInstance::load(const char *config) {
   testing_config = config;
 }
 
-bool EnginxInstance::test() {
+bool EnginxInstance::test(EnginxError& error) {
   testing_worker_config.Parse(testing_config.c_str());
   if (!testing_worker_config.IsArray()) {
+    error = EnginxError("config must be an array", ENGINX_ERROR_BAD_PARAMETER);
     return false;
   }
   for (Value::ValueIterator itr = testing_worker_config.Begin(); itr != testing_worker_config.End(); ++itr) {
     if (!itr->IsObject()) {
+      error = EnginxError("server config must be an json object", ENGINX_ERROR_BAD_PARAMETER);
       return false;
     }
     if (!itr->HasMember(ENGINX_CONFIG_FIELD_SERVER_NAME)) {
+      error = EnginxError("missing required field server_name", ENGINX_ERROR_BAD_PARAMETER);
       return false;
     }
   }

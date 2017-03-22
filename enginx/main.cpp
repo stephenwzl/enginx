@@ -21,7 +21,7 @@ void test_location_equal() {
 
 void test_rewrite() {
   string rewrited;
-  Enginx::transfer("http://baidu.com/api/auth", rewrited);
+  Enginx::transfer("http://baidu.com/api/auth/123", rewrited);
   cout<<"test rewrite:"<<endl;
   cout<< rewrited<<endl;
 }
@@ -30,15 +30,13 @@ int main(int argc, const char * argv[]) {
   string json = "[\
   {\
     \"server_name\":\"baidu.com\", \
-    \"action\":[\
-      \"decode $query_string\"\
-      ],\
     \"location\":{\
         \"/\":[\
           \"return http://stephenw.cc\"\
         ],\
         \"= /path\":[\
-          \"proxy_pass http://google.com\"    \
+          \"decode $arg_url\",\
+          \"return http://google.com?token=$arg_url\"    \
         ],\
         \"^~ /api\":[\
           \"rewrite ^/api/(.*)$ /$1\",\
@@ -49,7 +47,10 @@ int main(int argc, const char * argv[]) {
   ]";
   EnginxError error;
   Enginx::load(json.c_str(), error);
-  
-  test_location_equal();
-  test_rewrite();
+  if (error.code) {
+    cout << error.message << endl;
+  } else {
+    test_location_equal();
+    test_rewrite();
+  }
 }

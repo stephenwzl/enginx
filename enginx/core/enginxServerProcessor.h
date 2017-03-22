@@ -26,6 +26,7 @@ public:
   bool can_continue_rewrite;
 private:
   std::map<string, string> internal_vars;
+  std::map<string, string> query_vars;
   rapidjson::Document current_server;
   bool resolveActions();
   bool resolveInstruction(string instruction);

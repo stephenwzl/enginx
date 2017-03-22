@@ -18,11 +18,10 @@ class Enginx {
 public:
   static bool load(const char* config, EnginxError& error) {
     EnginxInstance::Instance().load(config);
-    if (EnginxInstance::Instance().test()) {
+    if (EnginxInstance::Instance().test(error)) {
       EnginxInstance::Instance().reload();
       return true;
     } else {
-      error = EnginxError("config test failed", ENGINX_ERROR_BAD_PARAMETER);
       return false;
     }
   }

@@ -43,7 +43,7 @@ ENGINX_NAMESPACE_BEGIN
 
 EnginxError::EnginxError(const char*msg, int code) {
   message = msg;
-  code = code;
+  this->code = code;
 }
 
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c) {

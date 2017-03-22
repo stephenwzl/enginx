@@ -115,10 +115,10 @@ bool is_server_can_response(Value& server, EnginxURL const url) {
   string server_name = server[ENGINX_CONFIG_FIELD_SERVER_NAME].GetString();
   if (server_name.compare(ENGINX_CONFIG_FIELD_DEF_DEFAULT_SERVER) == 0 ||
       server_name.compare(ENGINX_CONFIG_FIELD_DEF_SERVER_WILD) == 0) {
-    return true && is_server_schema_match(server, url) && is_server_port_match(server, url);
+    return is_server_schema_match(server, url) && is_server_port_match(server, url);
   }
   if (server_name.compare(url.host) == 0) {
-    return true && is_server_schema_match(server, url) && is_server_port_match(server, url);
+    return is_server_schema_match(server, url) && is_server_port_match(server, url);
   }
   return false;
 }

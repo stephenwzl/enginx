@@ -67,7 +67,7 @@ public:
   std::string message;
   int code;
   EnginxError(const char*msg, int code);
-  EnginxError() {};
+  EnginxError() { code = 0; };
 };
 
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c);

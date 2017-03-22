@@ -214,3 +214,5 @@ fabric.properties
 # facebook infer 
 infer-out/
 docset-installed.txt
+
+.idea
