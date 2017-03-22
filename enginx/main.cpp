@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include "time.h"
 #include "core/enginx.h"
 
 using namespace enginx;
@@ -24,6 +25,18 @@ void test_rewrite() {
   Enginx::transfer("http://baidu.com/api/auth/123", rewrited);
   cout<<"test rewrite:"<<endl;
   cout<< rewrited<<endl;
+}
+
+void test_time() {
+  clock_t start, finish;
+  start = clock();
+//  for (int i = 0; i < 10000; ++i) {
+    string rewrited;
+    Enginx::transfer("http://baidu.com/api/auth/123", rewrited);
+//  }
+  finish = clock();
+  cout << "time consumed:" << (double)(finish - start)/CLOCKS_PER_SEC <<endl;
+  
 }
 
 int main(int argc, const char * argv[]) {
@@ -50,7 +63,8 @@ int main(int argc, const char * argv[]) {
   if (error.code) {
     cout << error.message << endl;
   } else {
-    test_location_equal();
-    test_rewrite();
+//    test_location_equal();
+//    test_rewrite();
+    test_time();
   }
 }
