@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <regex>
 #ifndef ENGINX_NAMESPACE
 #define ENGINX_NAMESPACE enginx
 #endif
@@ -25,6 +26,9 @@
 #ifndef ENGINX_NAMESPACE_END
 #define ENGINX_NAMESPACE_END }
 #endif
+
+//#ifndef ENGINX_REGEX_VALID
+
 //error code def
 extern int const ENGINX_ERROR_BAD_PARAMETER;
 //config fields def
@@ -71,6 +75,7 @@ public:
 };
 
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c);
+bool RegexStringValid(const std::string& s, std::regex& mode, bool ignoreCase);
 
 std::string UrlEncode(const std::string& str);
 std::string UrlDecode(const std::string& str);

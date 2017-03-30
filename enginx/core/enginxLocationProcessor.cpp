@@ -50,7 +50,10 @@ bool EnginxLocation::resolveInstruction(string instruction) {
     if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_REWRITE) == 0 &&
         !server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI].empty()) {
       std::smatch matches;
-      std::regex mode(parts[1]);
+      std::regex mode;
+      if (!RegexStringValid(parts[1], mode, false)) {
+        return false;
+      }
       std::regex_search(server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI], matches, mode);
       computeInternalVars(matches);
       string template_str = parts[2];
@@ -202,12 +205,16 @@ bool is_location_matching(string operation, string request_path, bool* search_ne
       return res.first == rule.end();
     }
     if (op.compare(ENGINX_CONFIG_OPERATOR_REG_CASE_SENSITIVE) == 0) {
-      std::regex mode(parts[1]);
-      return std::regex_match(request_path, mode);
+      std::regex mode;
+      if (RegexStringValid(parts[1], mode, false)) {
+        return std::regex_match(request_path, mode);
+      }
     }
     if (op.compare(ENGINX_CONFIG_OPERATOR_REG_NO_CASE_SENSITIVE) == 0) {
-      std::regex mode(parts[1], std::regex::icase);
-      return std::regex_match(request_path, mode);
+      std::regex mode;
+      if (RegexStringValid(parts[1], mode, true)) {
+        return std::regex_match(request_path, mode);
+      }
     }
   }
   return false;

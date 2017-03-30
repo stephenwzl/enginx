@@ -46,6 +46,19 @@ EnginxError::EnginxError(const char*msg, int code) {
   this->code = code;
 }
 
+bool RegexStringValid(const std::string& s, std::regex& mode, bool ignoreCase) {
+  try {
+    if (ignoreCase) {
+      mode = std::regex(s, std::regex::icase);
+    } else {
+      mode = std::regex(s);
+    }
+  } catch (const std::regex_error& error) {
+    return false;
+  }
+  return true;
+}
+
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c) {
   std::string::size_type pos1, pos2;
   pos2 = s.find(c);
