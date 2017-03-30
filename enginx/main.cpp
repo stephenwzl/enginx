@@ -51,6 +51,9 @@ int main(int argc, const char * argv[]) {
   string json = "[\
   {\
     \"server_name\":\"baidu.com\", \
+  \"action\":[\
+  \"proxy_pass http://ele.me\"\
+  ],\
     \"location\":{\
         \"/\":[\
           \"return http://stephenw.cc\"\
