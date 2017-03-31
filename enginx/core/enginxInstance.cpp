@@ -125,6 +125,19 @@ bool EnginxInstance::testInstruction(enginx::EnginxError &error, std::string ins
       return false;
     }
   }
+  if (parts.size() == 3) {
+    if (ins.compare(ENGINX_CONFIG_INSTRUCTION_REWRITE) == 0) {
+      if (parts[1].empty() || parts[2].empty()) {
+        error = EnginxError("rewrite regex or string template can't be empty", ENGINX_ERROR_BAD_PARAMETER);
+        return false;
+      }
+      std::regex mode;
+      if (!RegexStringValid(parts[1], mode, false)) {
+        error = EnginxError("rewrite regex not valid", ENGINX_ERROR_BAD_PARAMETER);
+        return false;
+      }
+    }
+  }
   return true;
 }
 
