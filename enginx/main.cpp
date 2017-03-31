@@ -40,7 +40,7 @@ void test_time() {
   start = clock();
   for (int i = 0; i < 10000; ++i) {
     string rewrited;
-    Enginx::transfer("http://baidu.com/api/auth/123", rewrited);
+    Enginx::transfer("http://baidu.com/api/auth/123?hello=me", rewrited);
   }
   finish = clock();
   cout << "time consumed:" << (double)(finish - start)/CLOCKS_PER_SEC <<endl;
@@ -52,7 +52,6 @@ int main(int argc, const char * argv[]) {
   {\
     \"server_name\":\"baidu.com\", \
   \"action\":[\
-  \"proxy_pass http://ele.me\"\
   ],\
     \"location\":{\
         \"/\":[\

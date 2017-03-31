@@ -49,6 +49,7 @@ extern const char* ENGINX_CONFIG_VAR_DEF_HOST;
 extern const char* ENGINX_CONFIG_VAR_DEF_SCHEME;
 extern const char* ENGINX_CONFIG_VAR_DEF_QUERY_STRING;
 extern const char* ENGINX_CONFIG_VAR_DEF_FRAGMENT;
+extern const char* ENGINX_CONFIG_VAR_DEF_PATH;
 
 //action instruction def
 extern const char* ENGINX_CONFIG_INSTRUCTION_DECODE;

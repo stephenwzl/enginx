@@ -48,17 +48,18 @@ bool EnginxLocation::resolveInstruction(string instruction) {
   SplitString(instruction, parts, " ");
   if (parts.size() == 3) {
     if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_REWRITE) == 0 &&
-        !server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI].empty()) {
+        !server_vars[ENGINX_CONFIG_VAR_DEF_PATH].empty()) {
       std::smatch matches;
       std::regex mode;
       if (!RegexStringValid(parts[1], mode, false)) {
         return false;
       }
-      std::regex_search(server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI], matches, mode);
+      std::regex_search(server_vars[ENGINX_CONFIG_VAR_DEF_PATH], matches, mode);
       computeInternalVars(matches);
       string template_str = parts[2];
       compileTemplates(template_str);
       current_url.path = template_str;
+      server_vars[ENGINX_CONFIG_VAR_DEF_PATH] = current_url.path;
       server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = current_url.request_uri();
     }
   }

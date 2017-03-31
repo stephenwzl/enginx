@@ -52,6 +52,7 @@ private:
   bool testFormat(EnginxError& error);
   bool testAction(EnginxError& error, rapidjson::Value& action);
   bool testInstruction(enginx::EnginxError &error, std::string instruction, bool isInLocationField);
+  bool testLocations(EnginxError& error, rapidjson::Value& locations);
   std::string current_config;
   std::string testing_config;
   rapidjson::Document testing_worker_config;

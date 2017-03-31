@@ -20,6 +20,7 @@ void EnginxServerVarsGenerator(map<string, string>& vars, EnginxURL const url) {
   vars[ENGINX_CONFIG_VAR_DEF_FRAGMENT] = url.fragment;
   EnginxURL uri = url;
   vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = uri.request_uri();
+  vars[ENGINX_CONFIG_VAR_DEF_PATH] = url.path;
 }
 
 void EnginxServerQueryArgsGenerator(map<string, string>& args, EnginxURL const url) {

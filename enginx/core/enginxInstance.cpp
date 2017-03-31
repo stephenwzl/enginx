@@ -63,7 +63,12 @@ bool EnginxInstance::testFormat(enginx::EnginxError &error) {
       if (!testAction(error, action)) return false;
     }
     if (s.HasMember(ENGINX_CONFIG_FIELD_LOCATION)) {
-      
+      Value& location = s[ENGINX_CONFIG_FIELD_LOCATION];
+      if (!location.IsObject()) {
+        error = EnginxError("location field type error, expected object with keys", ENGINX_ERROR_BAD_PARAMETER);
+        return false;
+      }
+      if (!testLocations(error, location)) return false;
     }
     
   }
@@ -83,6 +88,23 @@ bool EnginxInstance::testAction(enginx::EnginxError &error, rapidjson::Value &ac
   return true;
 }
 
+bool EnginxInstance::testLocations(enginx::EnginxError &error, rapidjson::Value &locations) {
+  for (Value::ConstMemberIterator itr = locations.MemberBegin(); itr != locations.MemberEnd(); ++itr) {
+    if (!itr->value.IsArray()) {
+      error = EnginxError("location's instruction field type error, expected array", ENGINX_ERROR_BAD_PARAMETER);
+      return false;
+    }
+    for (Value::ConstValueIterator v_itr = itr->value.Begin(); v_itr != itr->value.End(); ++v_itr) {
+      if (!v_itr->IsString()) {
+        error = EnginxError("locations's instruction type must be string", ENGINX_ERROR_BAD_PARAMETER);
+        return false;
+      }
+      if (!testInstruction(error, v_itr->GetString(), true)) return false;
+    }
+  }
+  return true;
+}
+
 bool EnginxInstance::testInstruction(enginx::EnginxError &error, std::string instruction, bool isInLocationField) {
   std::vector<std::string> parts;
   SplitString(instruction, parts, " ");
@@ -93,7 +115,7 @@ bool EnginxInstance::testInstruction(enginx::EnginxError &error, std::string ins
   }
   std::string ins = parts[0];
   if ((ins.compare(ENGINX_CONFIG_INSTRUCTION_REWRITE) == 0 ||
-      ins.compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS)) == 0 && isInLocationField) {
+      ins.compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS) == 0) && !isInLocationField) {
     error = EnginxError("found instructions not supported in action area", ENGINX_ERROR_BAD_PARAMETER);
     return false;
   }
