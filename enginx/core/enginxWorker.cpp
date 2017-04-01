@@ -130,6 +130,10 @@ EnginxWorker::EnginxWorker(string absolute_url_string) {
     //early return if invalid url
     return;
   }
+  if (!worker_config.IsArray()) {
+    rewirted_url = current_url.absolute_url;
+    return;
+  }
   Document::AllocatorType& allocator = worker_config.GetAllocator();
   worker_config.CopyFrom(EnginxInstance::Instance().current_worker_config, allocator);
   Document::AllocatorType& r_allocator = response_servers.GetAllocator();

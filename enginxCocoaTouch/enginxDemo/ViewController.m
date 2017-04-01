@@ -20,7 +20,8 @@
   {\
   \"server_name\":\"baidu.com\", \
   \"action\":[\
-  \"decode $query_string\"\
+  \"decode $query_string\",\
+  \"proxy_pass http://baidu.com\"\
   ],\
   \"location\":{\
   \"/\":[\
@@ -29,7 +30,10 @@
   }\
   }\
   ]";
-  [enginxCocoaTouch loadConfig:json];
+  NSError *error = [enginxCocoaTouch loadConfig:json];
+  if (error) {
+    NSLog(@"%@", error);
+  }
   NSString *url = @"http://baidu.com/path?url=%e5%93%88%e5%93%88";
   NSLog(@"%@", [enginxCocoaTouch rewriteURLString:url]);
 }
