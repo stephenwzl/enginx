@@ -345,7 +345,7 @@
 		6C811CF91E7F88D100240300 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = stephenw.cc;
 				TargetAttributes = {
 					6C811D001E7F88D100240300 = {
@@ -552,7 +552,6 @@
 		6C811D0B1E7F88D100240300 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -565,7 +564,6 @@
 		6C811D0C1E7F88D100240300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -611,10 +609,6 @@
 		6C811D731E7F8F9800240300 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					x86_64,
-				);
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -625,10 +619,6 @@
 		6C811D741E7F8F9800240300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					x86_64,
-				);
 				DEVELOPMENT_TEAM = 7SVED42PVK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
