@@ -20,12 +20,11 @@
   {\
   \"server_name\":\"baidu.com\", \
   \"action\":[\
-  \"decode $query_string\",\
-  \"proxy_pass http://baidu.com\"\
+  \"decode $query_string\"\
   ],\
   \"location\":{\
   \"/\":[\
-  \"proxy_pass https://stephenw.cc$request_uri\"\
+  \"proxy_pass https://stephenw.cc\"\
   ]\
   }\
   }\

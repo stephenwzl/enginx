@@ -130,7 +130,7 @@ EnginxWorker::EnginxWorker(string absolute_url_string) {
     //early return if invalid url
     return;
   }
-  if (!worker_config.IsArray()) {
+  if (!EnginxInstance::Instance().current_worker_config.IsArray()) {
     rewirted_url = current_url.absolute_url;
     return;
   }
