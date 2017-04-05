@@ -78,7 +78,7 @@ int main(int argc, const char * argv[]) {
   } else {
     test_location_equal();
     test_rewrite();
-    //test_location_regex();
+    test_location_regex();
 //    test_time();
   }
   std::regex mode;

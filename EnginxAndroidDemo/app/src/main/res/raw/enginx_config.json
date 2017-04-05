@@ -1,0 +1,23 @@
+[
+  {
+    "server_name": "baidu.com",
+    "action": [
+    ],
+    "location": {
+      "/": [
+        "return http://stephenw.cc"
+      ],
+      "= /path": [
+        "decode $arg_url",
+        "return http://google.com?token=$arg_url"
+      ],
+      "^~ /api": [
+        "rewrite ^/api/(.*)$ /$1",
+        "return http://stephenw.cc$path"
+      ],
+      "~* .*(gif|jpg|jpeg)$":[
+        "proxy_pass http://ele.me"
+      ]
+    }
+  }
+]
