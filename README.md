@@ -13,7 +13,7 @@ pod 'enginxiOS', :git => 'https://gitlab.com/zhilong.wang/enginx'
 * install for Android  
 
 ```
-Please waiting for Android Library :-)
+compile 'cc.stephenw.enginxandroid:enginxandroid:0.1.0'
 ```  
 
 * for other platform supports C/C++  
@@ -34,7 +34,13 @@ NSString *URLString = [enginxCocoaTouch rewriteURLString:absolute_url];
 * for Android  
 
 ```
-Please wait :-)
+String config = ...; //load config from network, file, etc..
+String errorMessage = EnginxAndroid.loadConfig(config);
+if (!errorMessage.isEmpty()) {
+	//handle error
+}
+//then use it
+String url = EnginxAndroid.rewriteURL(...);
 ```  
 
 * use C++ directly  
