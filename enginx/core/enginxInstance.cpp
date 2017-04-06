@@ -115,7 +115,9 @@ bool EnginxInstance::testInstruction(enginx::EnginxError &error, std::string ins
   }
   std::string ins = parts[0];
   if ((ins.compare(ENGINX_CONFIG_INSTRUCTION_REWRITE) == 0 ||
-      ins.compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS) == 0 || ins.compare(ENGINX_CONFIG_INSTRUCTION_MATCH)) && !isInLocationField) {
+      ins.compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS) == 0 ||
+       ins.compare(ENGINX_CONFIG_INSTRUCTION_MATCH) == 0 ||
+       ins.compare(ENGINX_CONFIG_INSTRUCTION_PARSE) == 0) && !isInLocationField) {
     error = EnginxError("found instructions not supported in action area", ENGINX_ERROR_BAD_PARAMETER);
     return false;
   }
