@@ -70,7 +70,9 @@ location is an object contains keys for path matching and location instructions
 * decode
 * rewrite
 * return
-* proxy_pass  
+* proxy_pass
+* match
+* parse  
 
 ### internal variable  
 
@@ -81,7 +83,11 @@ location is an object contains keys for path matching and location instructions
 * $fragment
 * $path
 
-but when you rewriting a path, there are some other internal variable in the scope, you can use it with `$` and number like `$0`  
+but when you rewriting a path, there are some other internal variable in the scope, you can use it with `$` and number like `$0`    
+
+when you use `match` to match some variable, the variables are store at temp storage, use it with `$#` and number like `$#1`  
+
+when you use `parse` to parse some variable, the variables are store at temp storage, use it with `$#` and key like `$#somekey`
 
 ### query params
 when the url is handled, its query params will be stored at seprated scope, one is the server, another is the location. just use it with `$arg_querykey`, such as `https://google.com?name=stephenw`, use it with `$arg_name`, its value is `stephenw`    
