@@ -216,3 +216,4 @@ infer-out/
 docset-installed.txt
 
 .idea
+.vscode

@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>enginxNode.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>enginxiOS-demo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>6C811CDA1E7F845000240300</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6CB793351E9630260086BA19</key>
 		<dict>
 			<key>primary</key>
 			<true/>
