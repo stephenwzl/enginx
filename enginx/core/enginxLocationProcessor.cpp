@@ -61,6 +61,19 @@ bool EnginxLocation::resolveInstruction(string instruction) {
       current_url.path = template_str;
       server_vars[ENGINX_CONFIG_VAR_DEF_PATH] = current_url.path;
       server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = current_url.request_uri();
+    } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_MATCH) == 0) {
+      map<string, string>::iterator itr = server_vars.find(parts[1]);
+      if (itr == server_vars.end()) {
+        //can't find such server variable
+        return false;
+      }
+      std::smatch matches;
+      std::regex mode;
+      if (!RegexStringValid(parts[2], mode, false)) {
+        return false;
+      }
+      std::regex_search(server_vars[parts[1]], matches, mode);
+      computeTempVars(matches);
     }
   }
   if (parts.size() == 2) {
@@ -125,6 +138,19 @@ void EnginxLocation::computeInternalVars(std::smatch m) {
   }
 }
 
+void EnginxLocation::computeTempVars(std::smatch m) {
+  if (!temp_vars.empty()) {
+    temp_vars.clear();
+  }
+  unsigned int a = 0;
+  for (auto x : m) {
+    std::stringstream s;
+    s<< "$#" << a;
+    temp_vars[s.str()] = x.str();
+    a++;
+  }
+}
+
 void EnginxLocation::compileTemplates(string& template_str) {
   if (template_str.empty()) {
     return;
@@ -143,6 +169,12 @@ void EnginxLocation::compileTemplates(string& template_str) {
     }
   }
   for (itr = query_args.begin(); itr != query_args.end(); ++itr) {
+    string::size_type p = template_str.find(itr->first);
+    if (p != string::npos) {
+      template_str.replace(p, itr->first.length(), itr->second);
+    }
+  }
+  for (itr = temp_vars.begin(); itr != temp_vars.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
       template_str.replace(p, itr->first.length(), itr->second);

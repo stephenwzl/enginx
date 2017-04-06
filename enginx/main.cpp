@@ -23,7 +23,7 @@ void test_location_equal() {
 
 void test_rewrite() {
   string rewrited;
-  Enginx::transfer("http://baidu.com/api/auth/123", rewrited);
+  Enginx::transfer("http://baidu.com/api/auth/123#geohash=wtw3dn0w04zkbhsfnqnh3c&id=166657", rewrited);
   cout<<"test rewrite:"<<endl;
   cout<< rewrited<<endl;
 }
@@ -62,8 +62,8 @@ int main(int argc, const char * argv[]) {
           \"return http://google.com?token=$arg_url\"    \
         ],\
         \"^~ /api\":[\
-          \"rewrite ^/api/(.*)$ /$1\",\
-          \"return http://stephenw.cc$path\"\
+          \"match $fragment ^geohash=(.*)&id=(.*)$\",\
+          \"return http://stephenw.cc/$temp_2\"\
         ],\
         \"~* .*(gif|jpg|jpeg)$\":[\
           \"proxy_pass http://ele.me\"\
@@ -79,7 +79,7 @@ int main(int argc, const char * argv[]) {
     test_location_equal();
     test_rewrite();
     test_location_regex();
-//    test_time();
+    test_time();
   }
   std::regex mode;
   bool isvalid = RegexStringValid("*", mode, false);

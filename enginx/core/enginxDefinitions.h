@@ -58,6 +58,7 @@ extern const char* ENGINX_CONFIG_INSTRUCTION_REWRITE;
 extern const char* ENGINX_CONFIG_INSTRUCTION_PROXY_PASS;
 extern const char* ENGINX_CONFIG_INSTRUCTION_RETURN;
 extern const char* ENGINX_CONFIG_INSTRUCTION_TEMPORARILY;
+extern const char* ENGINX_CONFIG_INSTRUCTION_MATCH;
 
 //location operators
 extern const char* ENGINX_CONFIG_OPERATOR_EQUAL;
