@@ -6,19 +6,19 @@ enginX
 
 * install for iOS  
 
-```
+```ruby
 pod 'enginxiOS', :git => 'https://gitlab.com/zhilong.wang/enginx'
 ```	  
 
 * install for Android  
 
-```
+```gradle
 compile 'cc.stephenw.enginxandroid:enginxandroid:0.1.0'
 ```  
 
 * install for Node.js  
 
-```
+```shell
 npm install enginx-nodejs
 ```
 
@@ -29,7 +29,7 @@ npm install enginx-nodejs
 ## Enable enginX  
 * for iOS  
 
-```  
+```objective-c  
 NSString *config = ...;
 [enginxCocoaTouch loadConfig:config];
 
@@ -39,7 +39,7 @@ NSString *URLString = [enginxCocoaTouch rewriteURLString:absolute_url];
 
 * for Android  
 
-```
+```java
 String config = ...; //load config from network, file, etc..
 String errorMessage = EnginxAndroid.loadConfig(config);
 if (!errorMessage.isEmpty()) {
@@ -51,7 +51,7 @@ String url = EnginxAndroid.rewriteURL(...);
 
 * for Node.js  
 
-```  
+```javascript  
 const enginx = require('enginx-nodejs')
 
 //you can catch config error here
@@ -63,7 +63,7 @@ enginx.rewriteURLString('...')
 
 * use C++ directly  
 
-```
+```c++
 //load config
 
 const char* config_string = "...";
