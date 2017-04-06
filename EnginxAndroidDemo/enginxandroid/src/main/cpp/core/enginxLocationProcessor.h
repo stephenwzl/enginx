@@ -24,10 +24,12 @@ public:
 private:
   rapidjson::Document location_config;
   std::map<string, string> internal_vars;
+  std::map<string, string> temp_vars;
   std::map<string, string> server_vars;
   std::map<string, string> query_args;
   bool resolveInstruction(string instruction);
   void computeInternalVars(std::smatch m);
+  void computeTempVars(std::smatch m);
   void compileTemplates(string& template_str);
   void execInternalVarsSubstitution(vector<string>& parts);
 };

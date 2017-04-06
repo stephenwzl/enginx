@@ -31,6 +31,8 @@ const char* ENGINX_CONFIG_INSTRUCTION_REWRITE = "rewrite";
 const char* ENGINX_CONFIG_INSTRUCTION_PROXY_PASS = "proxy_pass";
 const char* ENGINX_CONFIG_INSTRUCTION_RETURN = "return";
 const char* ENGINX_CONFIG_INSTRUCTION_TEMPORARILY = "temporarily";
+const char* ENGINX_CONFIG_INSTRUCTION_MATCH = "match";
+const char* ENGINX_CONFIG_INSTRUCTION_PARSE = "parse";
 
 const char* ENGINX_CONFIG_OPERATOR_EQUAL = "=";
 //const char* ENGINX_CONFIG_OPERATIR_STRING = "/xx/xx";
