@@ -33,8 +33,21 @@ void LoadConfig(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(String::NewFromUtf8(isolate, error.message.c_str()));
 }
 
+void RewriteURL(const FunctionCallbackInfo<Value>& args) {
+  Isolate* isolate = args.GetIsolate();
+  if (args.Length() != 1 || !args[0]->IsString()) {
+    isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "wrong type of argument")));
+    return;
+  } 
+  String::Utf8Value url(args[0]);
+  std::string rewrited_url;
+  enginx::Enginx::transfer(ToCString(url), rewrited_url);
+  args.GetReturnValue().Set(String::NewFromUtf8(isolate, rewrited_url.c_str()));
+}
+
 void init(Local<Object> exports) {
   NODE_SET_METHOD(exports, "loadConfig", LoadConfig);
+  NODE_SET_METHOD(exports, "rewriteURLString", RewriteURL);
 }
 
 NODE_MODULE(addon, init)
