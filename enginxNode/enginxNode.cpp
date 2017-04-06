@@ -1,5 +1,5 @@
 #include <node.h>
-#include "../enginx/core/enginx.h"
+#include "core/enginx.h"
 
 
 namespace enginxNode {
