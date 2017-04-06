@@ -62,8 +62,8 @@ int main(int argc, const char * argv[]) {
           \"return http://google.com?token=$arg_url\"    \
         ],\
         \"^~ /api\":[\
-          \"match $fragment ^geohash=(.*)&id=(.*)$\",\
-          \"return http://stephenw.cc/$temp_2\"\
+          \"parse $fragment\",\
+          \"return http://stephenw.cc/$#geohash/$#id\"\
         ],\
         \"~* .*(gif|jpg|jpeg)$\":[\
           \"proxy_pass http://ele.me\"\

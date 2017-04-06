@@ -94,6 +94,24 @@ bool EnginxLocation::resolveInstruction(string instruction) {
         parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
       execInternalVarsSubstitution(parts);
     }
+    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_PARSE) == 0) {
+      map<string, string>::iterator itr = server_vars.find(parts[1]);
+      if (itr == server_vars.end()) {
+        //can't find such server variable
+        return false;
+      }
+      std::string splitor = server_vars[parts[1]];
+      vector<string> splits;
+      SplitString(splitor, splits, "&");
+      if (splits.size() == 0) return true;
+      for (vector<string>::size_type i = 0; i != splits.size() ; ++i) {
+        vector<string> key_value_pair;
+        SplitString(splits[i], key_value_pair, "=");
+        if (key_value_pair.size() != 2) continue;
+        string key = "$#" + key_value_pair[0];
+        temp_vars[key] = key_value_pair[1];
+      }
+    }
   }
   return true;
 }
