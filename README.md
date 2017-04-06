@@ -16,6 +16,12 @@ pod 'enginxiOS', :git => 'https://gitlab.com/zhilong.wang/enginx'
 compile 'cc.stephenw.enginxandroid:enginxandroid:0.1.0'
 ```  
 
+* install for Node.js  
+
+```
+npm install enginx-nodejs
+```
+
 * for other platform supports C/C++  
 	* include the header file `enginx.h`
 	* add support library for llvm C++ stl;
@@ -41,7 +47,19 @@ if (!errorMessage.isEmpty()) {
 }
 //then use it
 String url = EnginxAndroid.rewriteURL(...);
+```    
+
+* for Node.js  
+
 ```  
+const enginx = require('enginx-nodejs')
+
+//you can catch config error here
+enginx.loadConfig('...')
+
+//then use it
+enginx.rewriteURLString('...')
+```
 
 * use C++ directly  
 
