@@ -21,6 +21,7 @@ EnginxLocation::EnginxLocation(rapidjson::Value& location_config, map<string, st
   if (!this->location_config.IsArray()) {
     return;
   }
+  optional_mode = regex("\\{\\{([^\\s]*?)\\}\\?\\}");
   bool is_terminated = false;
   for (Value::ValueIterator itr = this->location_config.Begin(); itr < this->location_config.End(); ++itr) {
     if (itr->IsString()) {
@@ -43,11 +44,16 @@ EnginxLocation::EnginxLocation(rapidjson::Value& location_config, map<string, st
   }
 }
 
+//false: continue next instruction, true: end scope
 bool EnginxLocation::resolveInstruction(string instruction) {
   vector<string> parts;
   SplitString(instruction, parts, " ");
+  std::string ins;
+  if (parts.size() > 0) {
+    ins = parts[0];
+  }
   if (parts.size() == 3) {
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_REWRITE) == 0 &&
+    if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_REWRITE) &&
         !server_vars[ENGINX_CONFIG_VAR_DEF_PATH].empty()) {
       std::smatch matches;
       std::regex mode;
@@ -61,7 +67,7 @@ bool EnginxLocation::resolveInstruction(string instruction) {
       current_url.path = template_str;
       server_vars[ENGINX_CONFIG_VAR_DEF_PATH] = current_url.path;
       server_vars[ENGINX_CONFIG_VAR_DEF_REQUEST_URI] = current_url.request_uri();
-    } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_MATCH) == 0) {
+    } else if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_MATCH)) {
       map<string, string>::iterator itr = server_vars.find(parts[1]);
       if (itr == server_vars.end()) {
         //can't find such server variable
@@ -73,28 +79,37 @@ bool EnginxLocation::resolveInstruction(string instruction) {
         return false;
       }
       std::regex_search(server_vars[parts[1]], matches, mode);
-      computeTempVars(matches);
+      computeInternalVars(matches);
+    } else if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_VAR)) {
+      if (parts[1].empty() || parts[2].empty()) {
+        //var name empty or template empty
+        return false;
+      }
+      string result = parts[2];
+      compileTemplates(result);
+      string key = "$var_" + parts[1];
+      temp_vars[key] = result;
     }
   }
   if (parts.size() == 2) {
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_PROXY_PASS) == 0) {
+    if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_PROXY_PASS)) {
       string after_url = parts[1];
       after_url += ENGINX_CONFIG_VAR_DEF_REQUEST_URI;
       compileTemplates(after_url);
       rewrited_url = after_url;
       return false;
     }
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_RETURN) == 0) {
+    if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_RETURN)) {
       string after_url = parts[1];
       compileTemplates(after_url);
       rewrited_url = after_url;
       return false;
     }
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0 ||
-        parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
-      execInternalVarsSubstitution(parts);
+    if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_DECODE)||
+        StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_ENCODE)) {
+      execInternalVarsCoding(parts);
     }
-    if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_PARSE) == 0) {
+    if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_PARSE)) {
       map<string, string>::iterator itr = server_vars.find(parts[1]);
       if (itr == server_vars.end()) {
         //can't find such server variable
@@ -109,19 +124,19 @@ bool EnginxLocation::resolveInstruction(string instruction) {
         SplitString(splits[i], key_value_pair, "=");
         if (key_value_pair.size() != 2) continue;
         string key = "$#" + key_value_pair[0];
-        temp_vars[key] = key_value_pair[1];
+        internal_vars[key] = key_value_pair[1];
       }
     }
   }
   return true;
 }
 
-void EnginxLocation::execInternalVarsSubstitution(vector<string>& parts) {
+void EnginxLocation::execInternalVarsCoding(vector<string>& parts) {
   if (parts.size() != 2) {
     return;
   }
   map<string, string>::iterator itr;
-  //sustitute internal variables
+  //sustitute server variables
   for (itr = server_vars.begin(); itr != server_vars.end(); ++itr) {
     if (itr->first.compare(parts[1]) == 0) {
       if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
@@ -129,6 +144,7 @@ void EnginxLocation::execInternalVarsSubstitution(vector<string>& parts) {
       } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
         itr->second = UrlDecode(itr->second);
       }
+      return;
     }
   }
   //substitue query variables
@@ -139,6 +155,29 @@ void EnginxLocation::execInternalVarsSubstitution(vector<string>& parts) {
       } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
         itr->second = UrlDecode(itr->second);
       }
+      return;
+    }
+  }
+  //substitue internal variables
+  for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
+    if (itr->first.compare(parts[1]) == 0) {
+      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
+        itr->second = UrlEncode(itr->second);
+      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
+        itr->second = UrlDecode(itr->second);
+      }
+      return;
+    }
+  }
+  //substitue temp variables
+  for (itr = temp_vars.begin(); itr != temp_vars.end(); ++itr) {
+    if (itr->first.compare(parts[1]) == 0) {
+      if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_ENCODE) == 0) {
+        itr->second = UrlEncode(itr->second);
+      } else if (parts[0].compare(ENGINX_CONFIG_INSTRUCTION_DECODE) == 0) {
+        itr->second = UrlDecode(itr->second);
+      }
+      return;
     }
   }
 }
@@ -173,31 +212,66 @@ void EnginxLocation::compileTemplates(string& template_str) {
   if (template_str.empty()) {
     return;
   }
+  compileOptionalSections(template_str);
+  substitueStrVars(template_str);
+}
+
+bool EnginxLocation::substitueStrVars(string &template_str) {
+  if (template_str.empty()) {
+    return false;
+  }
+  bool substitued = false;
   map<string, string>::iterator itr;
   for (itr = server_vars.begin(); itr != server_vars.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
+      substitued = true;
       template_str.replace(p, itr->first.length(), itr->second);
     }
   }
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
+      substitued = true;
       template_str.replace(p, itr->first.length(), itr->second);
     }
   }
   for (itr = query_args.begin(); itr != query_args.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
+      substitued = true;
       template_str.replace(p, itr->first.length(), itr->second);
     }
   }
   for (itr = temp_vars.begin(); itr != temp_vars.end(); ++itr) {
     string::size_type p = template_str.find(itr->first);
     if (p != string::npos) {
+      substitued = true;
       template_str.replace(p, itr->first.length(), itr->second);
     }
   }
+  return substitued;
+}
+
+bool EnginxLocation::compileOptionalSections(string &template_str) {
+  std::smatch matches;
+  std::regex_search(template_str, matches, optional_mode);
+  if (matches.size() != 2) {
+    return false;
+  }
+  std::string optional_template = matches[1].str();
+  bool compiled = substitueStrVars(optional_template);
+  std::string optional_section = matches[0].str();
+  string::size_type p = template_str.find(optional_section);
+  if (p == string::npos) {
+    return false;
+  }
+  if (compiled) {
+    template_str.replace(p, optional_section.length(), optional_template);
+  } else {
+    template_str.replace(p, optional_section.length(), "");
+  }
+  return compileOptionalSections(template_str);
 }
 
 bool sortLocation(string& v1, string& v2) {
