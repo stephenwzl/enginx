@@ -223,32 +223,44 @@ bool EnginxLocation::substitueStrVars(string &template_str) {
   bool substitued = false;
   map<string, string>::iterator itr;
   for (itr = server_vars.begin(); itr != server_vars.end(); ++itr) {
-    string::size_type p = template_str.find(itr->first);
-    if (p != string::npos) {
-      substitued = true;
-      template_str.replace(p, itr->first.length(), itr->second);
-    }
+    string::size_type p = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        substitued = true;
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+    } while (p != string::npos);
   }
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
-    string::size_type p = template_str.find(itr->first);
-    if (p != string::npos) {
-      substitued = true;
-      template_str.replace(p, itr->first.length(), itr->second);
-    }
+    string::size_type p = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        substitued = true;
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+    } while (p != string::npos);
   }
   for (itr = query_args.begin(); itr != query_args.end(); ++itr) {
-    string::size_type p = template_str.find(itr->first);
-    if (p != string::npos) {
-      substitued = true;
-      template_str.replace(p, itr->first.length(), itr->second);
-    }
+    string::size_type p = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        substitued = true;
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+    } while (p != string::npos);
   }
   for (itr = temp_vars.begin(); itr != temp_vars.end(); ++itr) {
-    string::size_type p = template_str.find(itr->first);
-    if (p != string::npos) {
-      substitued = true;
-      template_str.replace(p, itr->first.length(), itr->second);
-    }
+    string::size_type p = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        substitued = true;
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+    } while (p != string::npos);
   }
   return substitued;
 }

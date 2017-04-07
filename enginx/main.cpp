@@ -49,7 +49,7 @@ void test_time() {
 void test_enginx() {
   string json = "[\
   {\
-  \"server_name\":\"h5.ele.me\", \
+  \"server_name\":\"baidu.com\", \
   \"action\":[\
   ],\
   \"location\":{\
@@ -58,7 +58,7 @@ void test_enginx() {
   ],\
   \"= /path\":[\
   \"decode $arg_url\",\
-  \"return http://google.com?token=$arg_url\"    \
+  \"return http://google.com$path$path?token=$arg_url?token=$arg_url?token=$arg_url?token=$arg_url?token=$arg_url?token=$arg_url\"    \
   ],\
   \"^~ /shop\":[\
   \"parse $fragment\",\
@@ -88,19 +88,22 @@ void test_enginx() {
 }
 
 void regex_template() {
-  std::string json = "{\"regex\" : \"\\{\\{([^\\s]*?)\\}\\}\"}";
-  //  test_enginx();
-  std::string s = "\\{\\{([^\\s]*?)\\}\\?\\}";
-  std::regex mode = std::regex(s);
-  std::string test_string = "http://abc.com/123{{a=$arg_a}?}{{b=$#a}?}";
-  std::smatch matches;
-  std::regex_search(test_string, matches, mode);
-  cout << matches.size() << endl;
-  std::string output = "";
-  for (auto x : matches) {
-    output = x.str();
-  }
-  cout << output <<endl;
+//  std::string json = "{\"regex\" : \"\\{\\{([^\\s]*?)\\}\\}\"}";
+//  //  test_enginx();
+//  std::string s = "\\{\\{([^\\s]*?)\\}\\?\\}";
+//  std::regex mode = std::regex(s);
+//  std::string test_string = "http://abc.com/123{{a=$arg_a}?}{{b=$#a}?}";
+//  std::smatch matches;
+//  std::regex_search(test_string, matches, mode);
+//  cout << matches.size() << endl;
+//  std::string output = "";
+//  for (auto x : matches) {
+//    output = x.str();
+//  }
+//  cout << output <<endl;
+  std::string s = "xx$1xx$1";
+  std::string::size_type p = s.find("$1");
+  cout<<p<<endl;
 }
 
 int main(int argc, const char * argv[]) {
