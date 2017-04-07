@@ -13,7 +13,7 @@ pod 'enginxiOS', :git => 'https://gitlab.com/zhilong.wang/enginx'
 * install for Android  
 
 ```gradle
-compile 'cc.stephenw.enginxandroid:enginxandroid:0.1.0'
+compile 'cc.stephenw.enginxandroid:enginxandroid:0.1.5'
 ```  
 
 * install for Node.js  

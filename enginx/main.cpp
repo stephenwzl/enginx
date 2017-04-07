@@ -30,7 +30,7 @@ void test_rewrite() {
 
 void test_location_regex() {
   string rewrited;
-  Enginx::transfer("http://baidu.com/56789.jpg", rewrited);
+  Enginx::transfer("http://baidu.com/56789.jpg?mama", rewrited);
   cout<<"test location regex:"<<endl;
   cout<< rewrited<<endl;
 }
