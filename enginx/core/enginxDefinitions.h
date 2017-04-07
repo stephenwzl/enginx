@@ -60,6 +60,7 @@ extern const char* ENGINX_CONFIG_INSTRUCTION_RETURN;
 extern const char* ENGINX_CONFIG_INSTRUCTION_TEMPORARILY;
 extern const char* ENGINX_CONFIG_INSTRUCTION_MATCH;
 extern const char* ENGINX_CONFIG_INSTRUCTION_PARSE;
+extern const char* ENGINX_CONFIG_INSTRUCTION_VAR;
 
 //location operators
 extern const char* ENGINX_CONFIG_OPERATOR_EQUAL;
@@ -79,6 +80,7 @@ public:
 
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c);
 bool RegexStringValid(const std::string& s, std::regex& mode, bool ignoreCase);
+bool StringEqual(const std::string s1, const std::string s2);
 
 std::string UrlEncode(const std::string& str);
 std::string UrlDecode(const std::string& str);
