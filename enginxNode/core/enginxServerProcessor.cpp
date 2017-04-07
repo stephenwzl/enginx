@@ -111,17 +111,23 @@ void EnginxServerProcessor::compileTemplateString(string& template_str) {
   map<string, string>::iterator itr;
   //compile internal variables
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
-    string::size_type p = template_str.find(itr->first);
-    if (p != string::npos) {
-      template_str.replace(p, itr->first.length(), itr->second);
-    }
+    string::size_type p = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+    } while (p != string::npos);
   }
   //compile query variables
   for (itr = query_vars.begin(); itr != query_vars.end(); ++itr) {
-    string::size_type p = template_str.find(itr->first);
-    if (p != string::npos) {
-      template_str.replace(p, itr->first.length(), itr->second);
-    }
+    string::size_type p = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+    } while (p != string::npos);
   }
 }
 
