@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.5"
+        versionCode 7
+        versionName "1.6"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -39,7 +39,7 @@ android {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.1.5"// 区分library版本
+version = "0.1.6"// 区分library版本
 
 def siteUrl = 'https://zhilong.wang@gitlab.com/zhilong.wang/enginx.git'   // 项目的主页 github地址
 def gitUrl = 'git@gitlab.com:zhilong.wang/enginx.git'   // Git仓库的url
