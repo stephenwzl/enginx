@@ -1,22 +1,13 @@
 [
   {
-    "server_name": "baidu.com",
-    "action": [
-    ],
+    "server_name": "h5.ele.me",
+    "scheme": "https",
     "location": {
-      "/": [
-        "return http://stephenw.cc"
-      ],
-      "= /path": [
-        "decode $arg_url",
-        "return http://google.com?token=$arg_url"
-      ],
-      "^~ /api": [
-        "rewrite ^/api/(.*)$ /$1",
-        "return http://stephenw.cc$path"
-      ],
-      "~* .*(gif|jpg|jpeg)$":[
-        "proxy_pass http://ele.me"
+      "^~ /shop": [
+        "parse $fragment",
+        "var data restaurant_id=$#id{{target_food_id=$#food_id}?}",
+        "encode $var_data",
+        "return eleme://restaurant?$var_data"
       ]
     }
   }

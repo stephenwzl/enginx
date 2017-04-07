@@ -27,11 +27,14 @@ private:
   std::map<string, string> temp_vars;
   std::map<string, string> server_vars;
   std::map<string, string> query_args;
+  std::regex optional_mode;
   bool resolveInstruction(string instruction);
   void computeInternalVars(std::smatch m);
   void computeTempVars(std::smatch m);
   void compileTemplates(string& template_str);
-  void execInternalVarsSubstitution(vector<string>& parts);
+  bool compileOptionalSections(string& template_str);
+  bool substitueStrVars(string& template_str);
+  void execInternalVarsCoding(vector<string>& parts);
 };
 
 void EnginxLocationDispatcher(EnginxURL const url, rapidjson::Value& locations, map<string, string>& server_vars, map<string, string>& query_args, string& rewrited_url);

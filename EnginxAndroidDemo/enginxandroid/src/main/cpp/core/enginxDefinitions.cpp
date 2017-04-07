@@ -33,6 +33,7 @@ const char* ENGINX_CONFIG_INSTRUCTION_RETURN = "return";
 const char* ENGINX_CONFIG_INSTRUCTION_TEMPORARILY = "temporarily";
 const char* ENGINX_CONFIG_INSTRUCTION_MATCH = "match";
 const char* ENGINX_CONFIG_INSTRUCTION_PARSE = "parse";
+const char* ENGINX_CONFIG_INSTRUCTION_VAR = "var";
 
 const char* ENGINX_CONFIG_OPERATOR_EQUAL = "=";
 //const char* ENGINX_CONFIG_OPERATIR_STRING = "/xx/xx";
@@ -74,6 +75,10 @@ void SplitString(const std::string& s, std::vector<std::string>& v, const std::s
   }
   if(pos1 != s.length())
     v.push_back(s.substr(pos1));
+}
+
+bool StringEqual(const std::string s1, const std::string s2) {
+  return s1.compare(s2) == 0;
 }
 
 unsigned char ToHex(unsigned char x)

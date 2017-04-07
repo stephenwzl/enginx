@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         String result = EnginxAndroid.loadConfig(this.configString());
         TextView t = (TextView) findViewById(R.id.enginx_hello);
         t.setText(result.isEmpty() ? "config load success" : result);
+        String rewrited = EnginxAndroid.rewriteURL("https://h5.ele.me/shop/#geohash=wtw3dn0w04zkbhsfnqnh3c&id=166657");
+        t.setText(rewrited);
     }
 
     protected String configString() {
