@@ -30,7 +30,7 @@ void test_rewrite() {
 
 void test_location_regex() {
   string rewrited;
-  Enginx::transfer("http://baidu.com/56789.jpg?mama", rewrited);
+  Enginx::transfer("http://baidu.com/restaurant", rewrited);
   cout<<"test location regex:"<<endl;
   cout<< rewrited<<endl;
 }
@@ -49,11 +49,11 @@ void test_time() {
 void test_enginx() {
   string json = "[\
   {\
-  \"server_name\":\"baidu.com\", \
+  \"server_name\":\"h5.ele.me\", \
   \"action\":[\
   ],\
   \"location\":{\
-  \"/\":[\
+  \"~* /restaurant/?\":[\
   \"return http://stephenw.cc\"\
   ],\
   \"= /path\":[\

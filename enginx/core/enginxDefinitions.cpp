@@ -9,6 +9,9 @@
 #include "enginxDefinitions.h"
 
 int const ENGINX_ERROR_BAD_PARAMETER = 10400;
+
+int const ENGINX_LOOP_MAX_COUNT = 100;
+
 const char* ENGINX_CONFIG_FIELD_SERVER_NAME = "server_name";
 const char* ENGINX_CONFIG_FIELD_SCHEMA = "scheme";
 const char* ENGINX_CONFIG_FIELD_PORT = "listen";
