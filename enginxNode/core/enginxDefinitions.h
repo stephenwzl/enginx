@@ -31,6 +31,10 @@
 
 //error code def
 extern int const ENGINX_ERROR_BAD_PARAMETER;
+
+//pre def
+extern int const ENGINX_LOOP_MAX_COUNT;
+
 //config fields def
 extern const char* ENGINX_CONFIG_FIELD_SERVER_NAME;
 extern const char* ENGINX_CONFIG_FIELD_SCHEMA;

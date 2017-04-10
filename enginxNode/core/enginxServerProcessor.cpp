@@ -112,22 +112,26 @@ void EnginxServerProcessor::compileTemplateString(string& template_str) {
   //compile internal variables
   for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
     string::size_type p = 0;
+    int count = 0;
     do {
       p = template_str.find(itr->first);
       if (p != string::npos) {
         template_str.replace(p, itr->first.length(), itr->second);
       }
-    } while (p != string::npos);
+      ++count;
+    } while (p != string::npos && count < ENGINX_LOOP_MAX_COUNT);
   }
   //compile query variables
   for (itr = query_vars.begin(); itr != query_vars.end(); ++itr) {
     string::size_type p = 0;
+    int count = 0;
     do {
       p = template_str.find(itr->first);
       if (p != string::npos) {
         template_str.replace(p, itr->first.length(), itr->second);
       }
-    } while (p != string::npos);
+      ++count;
+    } while (p != string::npos && count < ENGINX_LOOP_MAX_COUNT);
   }
 }
 

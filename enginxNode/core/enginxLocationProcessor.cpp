@@ -216,52 +216,33 @@ void EnginxLocation::compileTemplates(string& template_str) {
   substitueStrVars(template_str);
 }
 
+void substitueVarsInTemplateStr(string& template_str,
+                                map<string, string>& template_vars,
+                                bool& substituted) {
+  map<string, string>::iterator itr;
+  for (itr = template_vars.begin(); itr != template_vars.end(); ++itr) {
+    string::size_type p = 0;
+    int maxCount = 0;
+    do {
+      p = template_str.find(itr->first);
+      if (p != string::npos) {
+        substituted = true;
+        template_str.replace(p, itr->first.length(), itr->second);
+      }
+      ++maxCount;
+    } while (p != string::npos && maxCount < ENGINX_LOOP_MAX_COUNT);
+  }
+}
+
 bool EnginxLocation::substitueStrVars(string &template_str) {
   if (template_str.empty()) {
     return false;
   }
   bool substitued = false;
-  map<string, string>::iterator itr;
-  for (itr = server_vars.begin(); itr != server_vars.end(); ++itr) {
-    string::size_type p = 0;
-    do {
-      p = template_str.find(itr->first);
-      if (p != string::npos) {
-        substitued = true;
-        template_str.replace(p, itr->first.length(), itr->second);
-      }
-    } while (p != string::npos);
-  }
-  for (itr = internal_vars.begin(); itr != internal_vars.end(); ++itr) {
-    string::size_type p = 0;
-    do {
-      p = template_str.find(itr->first);
-      if (p != string::npos) {
-        substitued = true;
-        template_str.replace(p, itr->first.length(), itr->second);
-      }
-    } while (p != string::npos);
-  }
-  for (itr = query_args.begin(); itr != query_args.end(); ++itr) {
-    string::size_type p = 0;
-    do {
-      p = template_str.find(itr->first);
-      if (p != string::npos) {
-        substitued = true;
-        template_str.replace(p, itr->first.length(), itr->second);
-      }
-    } while (p != string::npos);
-  }
-  for (itr = temp_vars.begin(); itr != temp_vars.end(); ++itr) {
-    string::size_type p = 0;
-    do {
-      p = template_str.find(itr->first);
-      if (p != string::npos) {
-        substitued = true;
-        template_str.replace(p, itr->first.length(), itr->second);
-      }
-    } while (p != string::npos);
-  }
+  substitueVarsInTemplateStr(template_str, server_vars, substitued);
+  substitueVarsInTemplateStr(template_str, internal_vars, substitued);
+  substitueVarsInTemplateStr(template_str, query_args, substitued);
+  substitueVarsInTemplateStr(template_str, temp_vars, substitued);
   return substitued;
 }
 
