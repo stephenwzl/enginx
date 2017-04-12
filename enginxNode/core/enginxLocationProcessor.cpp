@@ -267,7 +267,7 @@ bool EnginxLocation::compileOptionalSections(string &template_str) {
   return compileOptionalSections(template_str);
 }
 
-bool sortLocation(string& v1, string& v2) {
+bool sortLocation(const string& v1,const string& v2) {
   vector<string> parts_v1;
   vector<string> parts_v2;
   SplitString(v1, parts_v1, " ");
