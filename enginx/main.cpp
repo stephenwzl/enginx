@@ -9,6 +9,7 @@
 #include <iostream>
 #include "time.h"
 #include "core/enginx.h"
+#include "core/vendor/re2/re2.h"
 #include <regex>
 
 using namespace enginx;
@@ -38,7 +39,7 @@ void test_location_regex() {
 void test_time() {
   clock_t start, finish;
   start = clock();
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < 10000; ++i) {
     string rewrited;
     Enginx::transfer("https://h5.ele.me/shop/#geohash=wtw3dn0w04zkbhsfnqnh3c&id=166657", rewrited);
   }
@@ -77,14 +78,14 @@ void test_enginx() {
   if (error.code) {
     cout << error.message << endl;
   } else {
-    test_location_equal();
-    test_rewrite();
-    test_location_regex();
+//    test_location_equal();
+//    test_rewrite();
+//    test_location_regex();
     test_time();
   }
   std::regex mode;
-  bool isvalid = RegexStringValid("*", mode, false);
-  cout<<isvalid<<endl;
+//  bool isvalid = RegexStringValid("*", mode, false);
+//  cout<<isvalid<<endl;
 }
 
 void regex_template() {
@@ -106,7 +107,18 @@ void regex_template() {
   cout<<p<<endl;
 }
 
+
+
+void test_re2() {
+//  std::vector<string> results;
+//  re2_find("^/shop/(.*)/food/(.*)$", "aaa/shop/123/food/456", results);
+//  for (std::vector<string>::iterator itr = results.begin(); itr != results.end(); ++itr) {
+//    cout << "results: "<<*itr <<endl;
+//  }
+}
+
 int main(int argc, const char * argv[]) {
   test_enginx();
 //  regex_template();
+//  test_re2();
 }
