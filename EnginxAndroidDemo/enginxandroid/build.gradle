@@ -7,21 +7,10 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 9
-        versionName "2.0"
+        versionCode 11
+        versionName "2.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags "-std=c++11"
-            }
-        }
-        ndk {
-            moduleName "enginx-android"
-            stl "c++_shared"
-            abiFilters "armeabi", "armeabi-v7a", "x86"
-        }
-
     }
     buildTypes {
         release {
@@ -30,8 +19,8 @@ android {
         }
     }
     externalNativeBuild {
-        cmake {
-            path 'CMakeLists.txt'
+        ndkBuild {
+            path 'Android.mk'
         }
     }
 }
@@ -39,7 +28,7 @@ android {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.2.0"// 区分library版本
+version = "0.2.2"// 区分library版本
 
 def siteUrl = 'https://zhilong.wang@gitlab.com/zhilong.wang/enginx.git'   // 项目的主页 github地址
 def gitUrl = 'git@gitlab.com:zhilong.wang/enginx.git'   // Git仓库的url

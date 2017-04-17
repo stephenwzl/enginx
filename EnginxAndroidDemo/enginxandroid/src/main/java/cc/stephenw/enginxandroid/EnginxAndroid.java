@@ -12,7 +12,7 @@ public class EnginxAndroid {
     public static class EnginxDefaultHandler implements EnginxLoadHandler {
         @Override
         public void loadLibrary(String libraryName) {
-            System.loadLibrary("enginx-android");
+            System.loadLibrary(libraryName);
         }
     }
 
@@ -25,8 +25,8 @@ public class EnginxAndroid {
         defaultHandler = handler;
     }
 
-    public static void loadLibrabry(String libraryName) {
-        defaultHandler.loadLibrary(libraryName);
+    public static void loadLibrary() {
+        defaultHandler.loadLibrary("enginx-android");
     }
 
     public static native String loadConfig(String config);
