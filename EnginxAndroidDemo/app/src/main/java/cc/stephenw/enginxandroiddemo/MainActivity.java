@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EnginxAndroid.loadLibrary();
         setContentView(R.layout.activity_main);
         String result = EnginxAndroid.loadConfig(this.configString());
         TextView t = (TextView) findViewById(R.id.enginx_hello);

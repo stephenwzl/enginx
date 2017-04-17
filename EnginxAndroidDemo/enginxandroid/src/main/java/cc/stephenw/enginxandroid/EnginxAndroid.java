@@ -5,8 +5,28 @@ package cc.stephenw.enginxandroid;
  */
 
 public class EnginxAndroid {
-    static {
-        System.loadLibrary("enginx-android");
+    public interface EnginxLoadHandler {
+        void loadLibrary(String libraryName);
+    }
+
+    public static class EnginxDefaultHandler implements EnginxLoadHandler {
+        @Override
+        public void loadLibrary(String libraryName) {
+            System.loadLibrary(libraryName);
+        }
+    }
+
+    private static volatile EnginxLoadHandler defaultHandler = new EnginxDefaultHandler();
+
+    public static void setLoadHandler(EnginxLoadHandler handler) {
+        if (handler == null) {
+            throw new NullPointerException("EnginxLoadHandler cannot be null");
+        }
+        defaultHandler = handler;
+    }
+
+    public static void loadLibrary() {
+        defaultHandler.loadLibrary("enginx-android");
     }
 
     public static native String loadConfig(String config);
