@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 8
-        versionName "1.7"
+        versionCode 9
+        versionName "2.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -19,7 +19,7 @@ android {
         ndk {
             moduleName "enginx-android"
             stl "c++_shared"
-            abiFilters "armeabi", "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+            abiFilters "armeabi", "armeabi-v7a", "x86"
         }
 
     }
@@ -39,7 +39,7 @@ android {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.1.7"// 区分library版本
+version = "0.2.0"// 区分library版本
 
 def siteUrl = 'https://zhilong.wang@gitlab.com/zhilong.wang/enginx.git'   // 项目的主页 github地址
 def gitUrl = 'git@gitlab.com:zhilong.wang/enginx.git'   // Git仓库的url
@@ -86,6 +86,7 @@ task javadoc(type: Javadoc) {
     classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
     failOnError false
 }
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
