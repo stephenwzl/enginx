@@ -117,7 +117,7 @@ bool is_server_can_response(Value& server, EnginxURL const url) {
       server_name.compare(ENGINX_CONFIG_FIELD_DEF_SERVER_WILD) == 0) {
     return is_server_schema_match(server, url) && is_server_port_match(server, url);
   }
-  if (server_name.compare(url.host) == 0) {
+  if (strcasecmp(server_name.c_str(), url.host.c_str()) == 0) {
     return is_server_schema_match(server, url) && is_server_port_match(server, url);
   }
   return false;

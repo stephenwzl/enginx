@@ -18,7 +18,7 @@
   [super viewDidLoad];
   NSString *json = @"[\
   {\
-  \"server_name\":\"baidu.com\", \
+  \"server_name\":\"BAIDU.COM\", \
   \"action\":[\
   \"decode $query_string\"\
   ],\
@@ -33,7 +33,7 @@
   if (error) {
     NSLog(@"%@", error);
   }
-  NSString *url = @"http://baidu.com/path?url=%e5%93%88%e5%93%88";
+  NSString *url = @"http://stephenw.cc/path?url=%e5%93%88%e5%93%88";
   NSLog(@"%@", [enginxCocoaTouch rewriteURLString:url]);
 }
 
