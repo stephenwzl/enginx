@@ -134,7 +134,8 @@ bool EnginxInstance::testInstruction(enginx::EnginxError &error, std::string ins
         error = EnginxError("rewrite regex or string template can't be empty", ENGINX_ERROR_BAD_PARAMETER);
         return false;
       }
-      if (!RegexStringValid(parts[1], false)) {
+      std::regex mode;
+      if (!RegexStringValid(parts[1], mode, false)) {
         error = EnginxError("rewrite regex not valid", ENGINX_ERROR_BAD_PARAMETER);
         return false;
       }

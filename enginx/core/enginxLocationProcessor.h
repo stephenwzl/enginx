@@ -11,6 +11,7 @@
 #include "enginxDefinitions.h"
 #include "enginxWorker.h"
 #include <map>
+#include <regex>
 
 ENGINX_NAMESPACE_BEGIN
 using namespace std;
@@ -26,10 +27,10 @@ private:
   std::map<string, string> temp_vars;
   std::map<string, string> server_vars;
   std::map<string, string> query_args;
-  std::string optional_mode;
+  std::regex optional_mode;
   bool resolveInstruction(string instruction);
-  void computeInternalVars(vector<string>& m);
-  void computeTempVars(vector<string>& m);
+  void computeInternalVars(std::smatch m);
+  void computeTempVars(std::smatch m);
   void compileTemplates(string& template_str);
   bool compileOptionalSections(string& template_str);
   bool substitueStrVars(string& template_str);

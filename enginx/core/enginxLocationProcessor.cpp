@@ -21,7 +21,7 @@ EnginxLocation::EnginxLocation(rapidjson::Value& location_config, map<string, st
   if (!this->location_config.IsArray()) {
     return;
   }
-  optional_mode = "\\{\\{([^\\s]*?)\\}\\?\\}";
+  optional_mode = regex("\\{\\{([^\\s]*?)\\}\\?\\}");
   bool is_terminated = false;
   for (Value::ValueIterator itr = this->location_config.Begin(); itr < this->location_config.End(); ++itr) {
     if (itr->IsString()) {
@@ -55,16 +55,12 @@ bool EnginxLocation::resolveInstruction(string instruction) {
   if (parts.size() == 3) {
     if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_REWRITE) &&
         !server_vars[ENGINX_CONFIG_VAR_DEF_PATH].empty()) {
-      std::vector<string> matches;
-//      std::regex mode;
-//      if (!RegexStringValid(parts[1], false)) {
-//        return false;
-//      }
-//      std::regex_search(server_vars[ENGINX_CONFIG_VAR_DEF_PATH], matches, mode);
-      bool find = re2_find(parts[1], server_vars[ENGINX_CONFIG_VAR_DEF_PATH], matches, true);
-      if (!find) {
+      std::smatch matches;
+      std::regex mode;
+      if (!RegexStringValid(parts[1], mode, false)) {
         return false;
       }
+      std::regex_search(server_vars[ENGINX_CONFIG_VAR_DEF_PATH], matches, mode);
       computeInternalVars(matches);
       string template_str = parts[2];
       compileTemplates(template_str);
@@ -77,16 +73,12 @@ bool EnginxLocation::resolveInstruction(string instruction) {
         //can't find such server variable
         return false;
       }
-      vector<string> matches;
-//      std::regex mode;
-//      if (!RegexStringValid(parts[2], mode, false)) {
-//        return false;
-//      }
-//      std::regex_search(server_vars[parts[1]], matches, mode);
-      bool find = re2_find(parts[2], server_vars[parts[1]], matches, true);
-      if (!find) {
+      std::smatch matches;
+      std::regex mode;
+      if (!RegexStringValid(parts[2], mode, false)) {
         return false;
       }
+      std::regex_search(server_vars[parts[1]], matches, mode);
       computeInternalVars(matches);
     } else if (StringEqual(ins, ENGINX_CONFIG_INSTRUCTION_VAR)) {
       if (parts[1].empty() || parts[2].empty()) {
@@ -190,28 +182,28 @@ void EnginxLocation::execInternalVarsCoding(vector<string>& parts) {
   }
 }
 
-void EnginxLocation::computeInternalVars(vector<string> &m) {
+void EnginxLocation::computeInternalVars(std::smatch m) {
   if (!internal_vars.empty()) {
     internal_vars.clear();
   }
   unsigned int a = 0;
-  for (vector<string>::iterator itr = m.begin(); itr != m.end(); ++itr) {
+  for (auto x : m) {
     std::stringstream s;
     s<< "$" << a;
-    internal_vars[s.str()] = *itr;
+    internal_vars[s.str()] = x.str();
     a++;
   }
 }
 
-void EnginxLocation::computeTempVars(vector<string> &m) {
+void EnginxLocation::computeTempVars(std::smatch m) {
   if (!temp_vars.empty()) {
     temp_vars.clear();
   }
   unsigned int a = 0;
-  for (vector<string>::iterator itr = m.begin(); itr != m.end(); ++itr) {
+  for (auto x : m) {
     std::stringstream s;
-    s<< "$" << a;
-    temp_vars[s.str()] = *itr;
+    s<< "$#" << a;
+    temp_vars[s.str()] = x.str();
     a++;
   }
 }
@@ -255,14 +247,14 @@ bool EnginxLocation::substitueStrVars(string &template_str) {
 }
 
 bool EnginxLocation::compileOptionalSections(string &template_str) {
-  vector<string> matches;
-  bool find = re2_find(optional_mode, template_str, matches, true);
-  if (!find || matches.size() != 2) {
+  std::smatch matches;
+  std::regex_search(template_str, matches, optional_mode);
+  if (matches.size() != 2) {
     return false;
   }
-  std::string optional_template = matches[1];
+  std::string optional_template = matches[1].str();
   bool compiled = substitueStrVars(optional_template);
-  std::string optional_section = matches[0];
+  std::string optional_section = matches[0].str();
   string::size_type p = template_str.find(optional_section);
   if (p == string::npos) {
     return false;
@@ -331,10 +323,16 @@ bool is_location_matching(string operation, string request_path, bool* search_ne
       return res.first == rule.end();
     }
     if (op.compare(ENGINX_CONFIG_OPERATOR_REG_CASE_SENSITIVE) == 0) {
-      return re2_match(parts[1], request_path, true);
+      std::regex mode;
+      if (RegexStringValid(parts[1], mode, false)) {
+        return std::regex_match(request_path, mode);
+      }
     }
     if (op.compare(ENGINX_CONFIG_OPERATOR_REG_NO_CASE_SENSITIVE) == 0) {
-      return re2_match(parts[1], request_path, false);
+      std::regex mode;
+      if (RegexStringValid(parts[1], mode, true)) {
+        return std::regex_match(request_path, mode);
+      }
     }
   }
   return false;

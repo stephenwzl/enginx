@@ -14,7 +14,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "vendor/re2/re2.h"
+#include <regex>
 #ifndef ENGINX_NAMESPACE
 #define ENGINX_NAMESPACE enginx
 #endif
@@ -82,10 +82,8 @@ public:
   EnginxError() { code = 0; };
 };
 
-bool re2_find(const std::string & pattern, const std::string & str, std::vector<std::string> & results, bool case_sensitive);
-bool re2_match(const std::string& pattern, const std::string& str, bool case_sensitive);
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c);
-bool RegexStringValid(const std::string& s, bool ignoreCase);
+bool RegexStringValid(const std::string& s, std::regex& mode, bool ignoreCase);
 bool StringEqual(const std::string s1, const std::string s2);
 
 std::string UrlEncode(const std::string& str);
