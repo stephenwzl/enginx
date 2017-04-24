@@ -52,65 +52,17 @@ EnginxError::EnginxError(const char*msg, int code) {
   this->code = code;
 }
 
-bool re2_find(const std::string & pattern, const std::string & str, std::vector<std::string> & results, bool case_sensitive) {
-  std::string wrapped_pattern = "(" + pattern + ")";
-  RE2::Options opt;
-  opt.set_log_errors(false);
-  opt.set_case_sensitive(case_sensitive);
-  opt.set_utf8(true);
-  RE2 re2(wrapped_pattern, opt);
-  if (!re2.ok()) {
-    /// Failed to compile regular expression.
+bool RegexStringValid(const std::string& s, std::regex& mode, bool ignoreCase) {
+  try {
+    if (ignoreCase) {
+      mode = std::regex(s, std::regex::icase);
+    } else {
+      mode = std::regex(s);
+    }
+  } catch (const std::regex_error& error) {
     return false;
   }
-  
-  /// Argument vector.
-  std::vector<RE2::Arg> arguments;
-  /// Vercor of pointers to arguments.
-  std::vector<RE2::Arg *> arguments_ptrs;
-  
-  /// Get number of arguments.
-  std::size_t args_count = re2.NumberOfCapturingGroups();
-  
-  /// Adjust vectors sizes.
-  arguments.resize(args_count);
-  arguments_ptrs.resize(args_count);
-  results.resize(args_count);
-  /// Capture pointers to stack objects and result object in vector..
-  for (std::size_t i = 0; i < args_count; ++i) {
-    /// Bind argument to string from vector.
-    arguments[i] = &results[i];
-    /// Save pointer to argument.
-    arguments_ptrs[i] = &arguments[i];
-  }
-  
-  re2::StringPiece piece(str);
-  return RE2::FindAndConsumeN(&piece, re2, arguments_ptrs.data(), (int)args_count);
-}
-
-bool re2_match(const std::string& pattern, const std::string& str, bool case_sensitive) {
-  std::string wrapped_pattern = "(" + pattern + ")";
-  RE2::Options opt;
-  opt.set_log_errors(false);
-  opt.set_case_sensitive(case_sensitive);
-  opt.set_utf8(true);
-  RE2 re2(wrapped_pattern, opt);
-  if (!re2.ok()) {
-    /// Failed to compile regular expression.
-    return false;
-  }
-  re2::StringPiece piece(str);
-  return RE2::FullMatch(piece, re2);
-}
-
-bool RegexStringValid(const std::string& s, bool ignoreCase) {
-  std::string wrapped_pattern = "(" + s + ")";
-  RE2::Options opt;
-  opt.set_log_errors(false);
-  opt.set_case_sensitive(!ignoreCase);
-  opt.set_utf8(true);
-  RE2 re2(wrapped_pattern, opt);
-  return re2.ok();
+  return true;
 }
 
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c) {
