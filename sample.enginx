@@ -1,0 +1,26 @@
+server {
+  name: google.com;
+  scheme: https;
+  port: 443;
+
+  location / {
+
+  }
+  location /shop/? {
+
+  }
+}
+
+server {
+  name: ele.me;
+  location / {
+    if (scheme == http) {
+      rewrite xxx;
+      a = xxx;
+      encode xxx;
+      decode xxxx;
+      return https://ele.me;
+    }
+    return https://h5.ele.me;
+  }
+}
