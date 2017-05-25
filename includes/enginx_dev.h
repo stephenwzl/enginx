@@ -6,8 +6,8 @@
 //  Copyright © 2017年 stephenw.cc. All rights reserved.
 //
 
-#ifndef enginx_h
-#define enginx_h
+#ifndef enginx_dev_h
+#define enginx_dev_h
 
 #include <stdio.h>
 #include "Mem.h"
@@ -123,6 +123,7 @@ struct enginx_interpreter_node {
   int             current_line_number;
 };
 
+
 //function definitions
 //interpreters
 void enginx_set_current_interpreter(ENGINX_INTERPRETER* inter);
@@ -133,8 +134,8 @@ void* enginx_malloc(size_t size);
 
 //creat entries
 ENGINX_INTERPRETER* enginx_create_interpreter();
-void enginx_compile_file(ENGINX_INTERPRETER* interpreter, FILE *fp);
-void enginx_compile_string(ENGINX_INTERPRETER* interpreter, char* str);
+int enginx_compile_file(ENGINX_INTERPRETER* interpreter, FILE *fp);
+int enginx_compile_string(ENGINX_INTERPRETER* interpreter, char* str);
 void enginx_reset_interpreter(ENGINX_INTERPRETER *interpreter);
 
 //each element creators
@@ -165,5 +166,12 @@ void enginx_begin_string_literal();
 void enginx_add_string_literal(int letter);
 char* enginx_close_string_literal();
 void enginx_reset_string_literal();
+
+//encode methods
+unsigned char enginx_to_hex(unsigned char x);
+unsigned char enginx_from_hex(unsigned char x);
+//manage return str memory yourself
+char* enginx_url_encode(char* str);
+char* enginx_url_decode(char* str);
 
 #endif

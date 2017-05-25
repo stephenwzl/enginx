@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>enginx.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>enginxCocoa.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>xcode.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +22,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>6C0549A01ED67CA800D33733</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6C0549B91ED67F6C00D33733</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6C2AAFA41EC598330019FF0C</key>
 		<dict>
 			<key>primary</key>

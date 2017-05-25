@@ -7,6 +7,7 @@
 //
 
 #import "enginxCocoa.h"
+#import "enginx.h"
 
 @implementation enginxCocoa
 

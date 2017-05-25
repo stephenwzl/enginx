@@ -1,0 +1,29 @@
+server {
+  domain: "google.com";
+  scheme: "https";
+  port: "443";
+
+  location "/" {
+    encode $query_string;
+    match $path "^/api/(.*)$";
+    return "https://h5.ele.me";
+  }
+  location "/shop/?" {
+    return "https://h5.ele.me";
+  }
+}
+
+server {
+  domain: "ele.me";
+  scheme: "https";
+  port: "443";
+
+  location "/" {
+    if (equal "scheme" "http") {
+      encode $xxx;
+      decode $xxxx;
+      return "https://ele.me";
+    }
+    return "https://h5.ele.me";
+  }
+}

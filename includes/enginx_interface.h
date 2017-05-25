@@ -9,5 +9,7 @@
 #ifndef enginx_interface_h
 #define enginx_interface_h
 
+#include "Mem.h"
+
 
 #endif /* enginx_interface_h */

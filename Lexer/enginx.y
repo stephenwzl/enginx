@@ -1,7 +1,9 @@
 %{
   #include <stdio.h>
-  #include "vita.h"
+  #include "enginx_dev.h"
   #define YYDEBUG 1
+  int yylex();
+  void yyerror(const char *s);
 %}
 
 %union {
@@ -15,16 +17,15 @@
   ENGINX_EXPRESSION       *expression;
   ENGINX_BLOCK            *block;
 }
-%token <argument> STRING_LITERAL
+%token <argument> STRING_LITERAL IDENTIFIER
 %token SERVER DOMAIN PORT LOCATION LP RP LC RC
 SEMICOLON COLON IF ENCODE DECODE RETURN MATCH PARSE DEFINE
 GREATER EQUAL SMALLER SCHEME
 %type <argument_list> argument_list
 %type <expression> expression encode_expression decode_expression return_expression 
 match_expression parse_expression define_expression compare_expression
-%type <statement> statement 
+%type <statement> statement if_statement
 %type <statement_list> statement_list
-%type <if_statement> if_statement
 %type <block> block;
 %type <server_list> server_list server
 %type <locations_list> location_list location
@@ -104,39 +105,47 @@ compare_expression
 }
 ;
 encode_expression
-: ENCODE argument_list
+: ENCODE IDENTIFIER
 {
-  $$ = enginx_create_expression(ENCODE_EXPRESSION, $2);
+  ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list($2);
+  $$ = enginx_create_expression(ENCODE_EXPRESSION, list);
 }
 ;
 decode_expression
-: DECODE argument_list
+: DECODE IDENTIFIER
 {
-  $$ = enginx_create_expression(DECODE_EXPRESSION, $2);
+  ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list($2);
+  $$ = enginx_create_expression(DECODE_EXPRESSION, list);
 }
 ;
 return_expression
-: RETURN argument_list
+: RETURN STRING_LITERAL
 {
-  $$ = enginx_create_expression(RETURN_EXPRESSION, $2);
+  ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list($2);
+  $$ = enginx_create_expression(RETURN_EXPRESSION, list);
 }
 ;
 match_expression
-: MATCH argument_list
+: MATCH IDENTIFIER STRING_LITERAL
 {
-  $$ = enginx_create_expression(MATCH_EXPRESSION, $2);
+  ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list($2);
+  list = enginx_chain_argument_list(list, $3);
+  $$ = enginx_create_expression(MATCH_EXPRESSION, list);
 }
 ;
 parse_expression
-: PARSE argument_list
+: PARSE IDENTIFIER
 {
-  $$ = enginx_create_expression(PARSE_EXPRESSION, $2);
+  ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list($2);
+  $$ = enginx_create_expression(PARSE_EXPRESSION, list);
 }
 ;
 define_expression
-: DEFINE argument_list
+: DEFINE IDENTIFIER STRING_LITERAL
 {
-  $$ = enginx_create_expression(DEFINE_EXPRESSION, $2);
+  ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list($2);
+  list = enginx_chain_argument_list(list, $3);
+  $$ = enginx_create_expression(DEFINE_EXPRESSION, list);
 }
 ;
 argument_list
@@ -144,7 +153,12 @@ argument_list
 {
   $$ = enginx_create_argument_list($1);
 }
+| IDENTIFIER 
+{
+  $$ = enginx_create_argument_list($1);
+}
 | argument_list STRING_LITERAL
+| argument_list IDENTIFIER
 {
   $$ = enginx_chain_argument_list($1, $2);
 }
