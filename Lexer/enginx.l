@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "enginx_dev.h"
-#include "y.tab.h"
+#include "enginx_parse.h"
 
-int yywrap(void)
+int enginxwrap(void)
 {
   return 1;
 }
@@ -37,9 +37,12 @@ static void increment_line_number(void)
 <INITIAL>"greater"      return GREATER;
 <INITIAL>"equal"        return EQUAL;
 <INITIAL>"smaller"      return SMALLER;
-
+<INITIAL>"null" {
+  enginxlval.argument = enginx_create_null_value();
+  return NULL_VALUE;
+}
 <INITIAL>$[A-Za-z_][A-Za-z_0-9]* {
-  yylval.argument = enginx_create_identifier_value(yytext);
+  enginxlval.argument = enginx_create_identifier_value(yytext);
   return IDENTIFIER;
 }
 <INITIAL>#  BEGIN COMMENT;
@@ -55,7 +58,7 @@ static void increment_line_number(void)
 }
 <STRING_LITERAL_STATE>\" {
   char* str = enginx_close_string_literal();
-  yylval.argument = enginx_create_string_value(str);
+  enginxlval.argument = enginx_create_string_value(str);
   BEGIN INITIAL;
   return STRING_LITERAL;
 }
@@ -67,5 +70,5 @@ static void increment_line_number(void)
 <STRING_LITERAL_STATE>\\n       enginx_add_string_literal('\n');
 <STRING_LITERAL_STATE>\\t       enginx_add_string_literal('\t');
 <STRING_LITERAL_STATE>\\\\      enginx_add_string_literal('\\');
-<STRING_LITERAL_STATE>.         enginx_add_string_literal(yytext[0]);
+<STRING_LITERAL_STATE>.         enginx_add_string_literal(enginxtext[0]);
 %%

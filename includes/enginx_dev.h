@@ -29,6 +29,7 @@ typedef enum {
   ENGINX_BOOLEAN_VALUE = 1,
   ENGINX_STRING_VALUE,
   ENGINX_INT_VALUE,
+  ENGINX_NULL_VALUE,
   ENGINX_IDENTIFIER_VALUE
 } ENGINX_VALUE_TYPE;
 
@@ -142,6 +143,7 @@ void enginx_reset_interpreter(ENGINX_INTERPRETER *interpreter);
 ENGINX_VALUE* enginx_create_string_value(char* str);
 ENGINX_VALUE* enginx_create_int_value(int value);
 ENGINX_VALUE* enginx_create_identifier_value(char* str);
+ENGINX_VALUE* enginx_create_null_value();
 ENGINX_EXPRESSION* enginx_create_expression(ENGINX_EXPRESSION_TYPE type, ENGINX_ARGUMENT_LIST* argument_list);
 ENGINX_ARGUMENT_LIST* enginx_create_argument_list(ENGINX_VALUE* value);
 ENGINX_ARGUMENT_LIST* enginx_chain_argument_list(ENGINX_ARGUMENT_LIST* alist, ENGINX_VALUE* value);

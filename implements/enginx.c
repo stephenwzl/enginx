@@ -291,7 +291,12 @@ char* enginx_location_process(ENGINX_SERVER* server, enginx_url* url)
     int status = regexec(&regex, url->path, 1, matches, 0);
     if (status == 0) {
       regfree(&regex);
-      return enginx_exec_location_statements(location, url);//return location statements
+      regmatch_t current_math = matches[0];
+      int compare_len = (int)(current_math.rm_eo - current_math.rm_so); //only full match can execute
+      if (compare_len == strlen(url->path)) {
+        return enginx_exec_location_statements(location, url);//return location statements
+      }
+      continue;
     } else {
       regfree(&regex);
       continue;
@@ -312,7 +317,7 @@ char* enginx_exec_location_statements(ENGINX_LOCATION* location, enginx_url* url
   enginx_dictionary* query_variables = enginx_generate_query_variables(url);
   global_variables = enginx_dictionary_cat(global_variables, query_variables);
   //placeholder key&value
-  enginx_dictionary* internal_variables = NULL;
+  enginx_dictionary* internal_variables = enginx_dictionary_create("*", "*");
   ENGINX_STATEMENT_LIST* state_list;
   for (state_list = location->location_statements; state_list; state_list = state_list->next) {
     char* return_val = enginx_exec_statements(state_list->statement, global_variables, internal_variables);
@@ -321,6 +326,7 @@ char* enginx_exec_location_statements(ENGINX_LOCATION* location, enginx_url* url
     }
   }
   enginx_release_dictionary(global_variables);
+  enginx_release_dictionary(internal_variables);
   return NULL;
 }
 
@@ -383,19 +389,19 @@ char** enginx_generate_key_value_pairs(char* str)
   return pairs;
 }
 
-enginx_dictionary* enginx_generate_query_variables(enginx_url* url)
+enginx_dictionary* enginx_generate_key_value_variables(char* str, char* prefix)
 {
-  if (url->querystring == NULL) {
+  if (str == NULL) {
     return NULL;
   }
   enginx_dictionary* dict = NULL;
   char* spliter = "&";
   char buffer[256];
-  char* first = strtok(url->querystring, spliter);
+  char* first = strtok(str, spliter);
   while (first != NULL) {
     char** key_value = enginx_generate_key_value_pairs(first);
     if (key_value[0] != NULL) {
-      sprintf(buffer, "$arg_%s", key_value[0]);
+      sprintf(buffer,"%s%s", prefix, key_value[0]);
       if (dict == NULL) {
         dict = enginx_dictionary_create(buffer, key_value[1]);
       } else {
@@ -416,6 +422,11 @@ enginx_dictionary* enginx_generate_query_variables(enginx_url* url)
   }
   
   return dict;
+}
+
+enginx_dictionary* enginx_generate_query_variables(enginx_url* url)
+{
+  return enginx_generate_key_value_variables(url->querystring, "$arg_");
 }
 
 #pragma mark - enginx dictionary methods
@@ -475,6 +486,8 @@ char* enginx_exec_if_statement(ENGINX_IF_STATMENT* if_statement,
                                enginx_dictionary* global_values,
                                enginx_dictionary* internal_values);
 
+char* enginx_compile_string_template(char* str_template, enginx_dictionary* global_values, enginx_dictionary* internal_values);
+
 char* enginx_exec_statements(ENGINX_STATEMENT* statement,
                              enginx_dictionary* global_values,
                              enginx_dictionary* internal_variables)
@@ -502,12 +515,18 @@ char* enginx_exec_expression(ENGINX_EXPRESSION* expression,
     {
       if (expression->list->value &&
           expression->list->value->type == ENGINX_IDENTIFIER_VALUE) {
+        enginx_dictionary* dicToSet = global_values;
         char* val = enginx_value_for_key(global_values, expression->list->value->u.string_value);
-        if (val != NULL) {
-          char* res = enginx_url_encode(val);
-          enginx_set_value_for_key(global_values, expression->list->value->u.string_value, res);
-          free(res);
+        if (val == NULL) {
+          val = enginx_value_for_key(internal_variables, expression->list->value->u.string_value);
+          dicToSet = internal_variables;
+          if (val == NULL) {
+            return NULL;
+          }
         }
+        char* res = enginx_url_encode(val);
+        enginx_set_value_for_key(dicToSet, expression->list->value->u.string_value, res);
+        free(res);
       }
       break;
     }
@@ -566,10 +585,28 @@ char* enginx_exec_expression(ENGINX_EXPRESSION* expression,
     }
     case RETURN_EXPRESSION:
     {
-      
+      return enginx_compile_string_template(expression->list->value->u.string_value, global_values, internal_variables);
     }
     case DEFINE_EXPRESSION:
+    {
+      char* key = expression->list->value->u.string_value;
+      char* value = enginx_compile_string_template(expression->list->next->value->u.string_value, global_values, internal_variables);
+      enginx_set_value_for_key(internal_variables, key, value);
+      break;
+    }
     case PARSE_EXPRESSION:
+    {
+      char* value = enginx_value_for_key(global_values, expression->list->value->u.string_value);
+      if (value == NULL) {
+        value = enginx_value_for_key(internal_variables, expression->list->value->u.string_value);
+        if (value == NULL) {
+          return NULL;
+        }
+      }
+      enginx_dictionary *dict = enginx_generate_key_value_variables(value, "$#");
+      internal_variables = enginx_dictionary_cat(internal_variables, dict);
+      break;
+    }
     default:
     break;
   }
@@ -580,5 +617,71 @@ char* enginx_exec_if_statement(ENGINX_IF_STATMENT* if_statement,
                                enginx_dictionary* global_values,
                                enginx_dictionary* internal_values)
 {
+  
   return NULL;
+}
+
+char* enginx_replace_str(char* origin, char* sub_str, char* replacement)
+{
+  char* return_ptr = NULL;
+  char* oringin_ptr = origin;
+  int matched[32] = {[0 ... 31] = -1};
+  int p_count = 0;
+  size_t pattern_len = strlen(sub_str);
+  char* p = strstr(oringin_ptr, sub_str);
+  while (p) {
+    int loc = (int)(p - origin);
+    matched[p_count] = loc;
+    p_count++;
+    oringin_ptr = p + pattern_len;
+    p = strstr(oringin_ptr, sub_str);
+  }
+  if (p_count > 0 && p_count < 32) {
+    size_t return_len = strlen(replacement) * p_count + strlen(origin) - pattern_len * p_count + 1;
+    return_ptr = (char *)malloc(return_len);
+    memset(return_ptr, '\0', return_len);
+    int last_index = 0;
+    char* cp_ptr = return_ptr;
+    for (int i = 0; i < p_count; ++i) {
+      int index = matched[i];
+      if (index < 0) {
+        break;
+      }
+      char* ptr = origin + last_index;
+      int increments = index - last_index;
+      strncpy(cp_ptr, ptr, increments);
+      cp_ptr += increments;
+      strncpy(cp_ptr, replacement, strlen(replacement));
+      cp_ptr += strlen(replacement);
+      last_index += increments + pattern_len;
+    }
+    if (strlen(oringin_ptr) > 0) {
+      strncpy(cp_ptr, oringin_ptr, strlen(oringin_ptr));
+    }
+  }
+  return return_ptr;
+}
+
+char* enginx_compile_string_template(char* str_template, enginx_dictionary* global_values, enginx_dictionary* internal_values)
+{
+  char* return_str = (char*)malloc(strlen(str_template) + 1);
+  strcpy(return_str, str_template);
+  enginx_dictionary* dic;
+  for (dic = global_values; dic; dic = dic->next) {
+    char* key = dic->key;
+    char* compiled_str = enginx_replace_str(return_str, key, dic->value);
+    if (compiled_str) {
+      free(return_str);
+      return_str = compiled_str;
+    }
+  }
+  for (dic = internal_values; dic; dic = dic->next) {
+    char* key = dic->key;
+    char* compiled_str = enginx_replace_str(return_str, key, dic->value);
+    if (compiled_str) {
+      free(return_str);
+      return_str = compiled_str;
+    }
+  }
+  return return_str;
 }

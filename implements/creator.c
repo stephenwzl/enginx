@@ -42,11 +42,11 @@ ENGINX_INTERPRETER* enginx_create_interpreter()
 
 int enginx_compile_file(ENGINX_INTERPRETER* interpreter, FILE *fp)
 {
-  extern int yyparse(void);
-  extern FILE *yyin;
+  extern int enginxparse(void);
+  extern FILE *enginxin;
   enginx_set_current_interpreter(interpreter);
-  yyin = fp;
-  if (yyparse()) {
+  enginxin = fp;
+  if (enginxparse()) {
 #ifdef DEBUG
     fprintf(stderr, "yyparse error occured\n");
 #endif
@@ -58,18 +58,18 @@ int enginx_compile_file(ENGINX_INTERPRETER* interpreter, FILE *fp)
 int enginx_compile_string(ENGINX_INTERPRETER* interpreter, char* str)
 {
   typedef struct yy_buffer_state *YY_BUFFER_STATE;
-  extern int yyparse();
-  extern YY_BUFFER_STATE yy_scan_string(char * str);
-  extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
-  YY_BUFFER_STATE buffer = yy_scan_string(str);
-  if (yyparse()) {
+  extern int enginxparse();
+  extern YY_BUFFER_STATE enginx_scan_string(char * str);
+  extern void enginx_delete_buffer(YY_BUFFER_STATE buffer);
+  YY_BUFFER_STATE buffer = enginx_scan_string(str);
+  if (enginxparse()) {
 #ifdef DEBUG
     fprintf(stderr, "yyparse error occured\n");
 #endif
-    yy_delete_buffer(buffer);
+    enginx_delete_buffer(buffer);
     return 1;
   }
-  yy_delete_buffer(buffer);
+  enginx_delete_buffer(buffer);
   return 0;
 }
 
@@ -157,7 +157,7 @@ ENGINX_STATEMENT_LIST* enginx_chain_statement_list(ENGINX_STATEMENT_LIST* list, 
   ENGINX_STATEMENT_LIST* pos;
   for (pos = list; pos->next; pos = pos->next);
   pos->next = enginx_create_statement_list(statement);
-  return pos;
+  return list;
 }
 
 ENGINX_BLOCK* enginx_create_block(ENGINX_STATEMENT_LIST* list)
@@ -243,6 +243,14 @@ ENGINX_VALUE* enginx_create_identifier_value(char* str)
   return val;
 }
 
+ENGINX_VALUE* enginx_create_null_value()
+{
+  ENGINX_VALUE* val;
+  val = enginx_malloc(sizeof(ENGINX_VALUE));
+  val->type = ENGINX_NULL_VALUE;
+  return val;
+}
+
 int enginx_value_to_integer(ENGINX_VALUE* value)
 {
   if (value->type == ENGINX_BOOLEAN_VALUE) {
@@ -253,15 +261,15 @@ int enginx_value_to_integer(ENGINX_VALUE* value)
   return atoi(value->u.string_value);
 }
 
-int yyerror(char const *str)
+int enginxerror(char const *str)
 {
-  extern char *yytext;
+  extern char *enginxtext;
 #ifdef DEBUG
   printf("line: %d\n",  enginx_get_current_interpreter()->current_line_number);
-  fprintf(stderr, "parser error near %s\n", yytext);
+  fprintf(stderr, "parser error near %s\n", enginxtext);
 #endif
   char msg_buffer[256];
-  snprintf(msg_buffer, 256, "%s at line %d: \"%s\"", str, enginx_get_current_interpreter()->current_line_number, yytext);
+  snprintf(msg_buffer, 256, "%s at line %d: \"%s\"", str, enginx_get_current_interpreter()->current_line_number, enginxtext);
   enginx_compile_error_create(400, msg_buffer);
   return 0;
 }

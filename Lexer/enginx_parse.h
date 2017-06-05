@@ -41,53 +41,55 @@
    enum yytokentype {
      STRING_LITERAL = 258,
      IDENTIFIER = 259,
-     SERVER = 260,
-     DOMAIN = 261,
-     PORT = 262,
-     LOCATION = 263,
-     LP = 264,
-     RP = 265,
-     LC = 266,
-     RC = 267,
-     SEMICOLON = 268,
-     COLON = 269,
-     IF = 270,
-     ENCODE = 271,
-     DECODE = 272,
-     RETURN = 273,
-     MATCH = 274,
-     PARSE = 275,
-     DEFINE = 276,
-     GREATER = 277,
-     EQUAL = 278,
-     SMALLER = 279,
-     SCHEME = 280
+     NULL_VALUE = 260,
+     SERVER = 261,
+     DOMAIN = 262,
+     PORT = 263,
+     LOCATION = 264,
+     LP = 265,
+     RP = 266,
+     LC = 267,
+     RC = 268,
+     SEMICOLON = 269,
+     COLON = 270,
+     IF = 271,
+     ENCODE = 272,
+     DECODE = 273,
+     RETURN = 274,
+     MATCH = 275,
+     PARSE = 276,
+     DEFINE = 277,
+     GREATER = 278,
+     EQUAL = 279,
+     SMALLER = 280,
+     SCHEME = 281
    };
 #endif
 /* Tokens.  */
 #define STRING_LITERAL 258
 #define IDENTIFIER 259
-#define SERVER 260
-#define DOMAIN 261
-#define PORT 262
-#define LOCATION 263
-#define LP 264
-#define RP 265
-#define LC 266
-#define RC 267
-#define SEMICOLON 268
-#define COLON 269
-#define IF 270
-#define ENCODE 271
-#define DECODE 272
-#define RETURN 273
-#define MATCH 274
-#define PARSE 275
-#define DEFINE 276
-#define GREATER 277
-#define EQUAL 278
-#define SMALLER 279
-#define SCHEME 280
+#define NULL_VALUE 260
+#define SERVER 261
+#define DOMAIN 262
+#define PORT 263
+#define LOCATION 264
+#define LP 265
+#define RP 266
+#define LC 267
+#define RC 268
+#define SEMICOLON 269
+#define COLON 270
+#define IF 271
+#define ENCODE 272
+#define DECODE 273
+#define RETURN 274
+#define MATCH 275
+#define PARSE 276
+#define DEFINE 277
+#define GREATER 278
+#define EQUAL 279
+#define SMALLER 280
+#define SCHEME 281
 
 
 
@@ -107,12 +109,12 @@ typedef union YYSTYPE
   ENGINX_BLOCK            *block;
 }
 /* Line 1529 of yacc.c.  */
-#line 111 "y.tab.h"
+#line 113 "enginx_parse.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
 #endif
 
-extern YYSTYPE yylval;
+extern YYSTYPE enginxlval;
 

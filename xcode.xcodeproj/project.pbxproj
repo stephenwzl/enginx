@@ -10,20 +10,21 @@
 		6C0549BE1ED67F6C00D33733 /* enginxCocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0549BD1ED67F6C00D33733 /* enginxCocoa.m */; };
 		6C0549BF1ED67F6C00D33733 /* enginxCocoa.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C0549BC1ED67F6C00D33733 /* enginxCocoa.h */; };
 		6C0549C31ED67F8E00D33733 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563F81ECAE3C10081B24E /* http_parser.c */; };
-		6C0549C41ED67F8E00D33733 /* lex.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD56C2F1EC9C2CC0011B279 /* lex.yy.c */; };
-		6C0549C51ED67F8E00D33733 /* y.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD56C301EC9C2CC0011B279 /* y.tab.c */; };
 		6C0549C61ED67F8E00D33733 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14021F1EC9859800376490 /* creator.c */; };
 		6C0549C71ED67F8E00D33733 /* enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563FB1ECAE5910081B24E /* enginx.c */; };
-		6C0549C81ED67F8E00D33733 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; };
+		6C0549C81ED67F8E00D33733 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; settings = {COMPILER_FLAGS = "-W"; }; };
 		6C0549C91ED67F8E00D33733 /* storage.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020E1EC9804900376490 /* storage.c */; };
 		6C1402101EC9804900376490 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; };
 		6C1402111EC9804900376490 /* storage.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020E1EC9804900376490 /* storage.c */; };
 		6C1402141EC9805B00376490 /* demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C1402131EC9805B00376490 /* demo.c */; };
 		6C1402201EC9859800376490 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14021F1EC9859800376490 /* creator.c */; };
+		6C5DDE721ED6C4A100276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; };
+		6C5DDE751ED6C66300276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; };
+		6C5DDE761ED6C68900276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; };
+		6C5DDE771ED6C68900276C97 /* enginx_parse.h in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE741ED6C66300276C97 /* enginx_parse.h */; };
+		6C5DDE781ED6C68900276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; };
 		6CB563FA1ECAE3C10081B24E /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563F81ECAE3C10081B24E /* http_parser.c */; };
 		6CB563FC1ECAE5910081B24E /* enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563FB1ECAE5910081B24E /* enginx.c */; };
-		6CD56C321EC9C2CC0011B279 /* lex.yy.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD56C2F1EC9C2CC0011B279 /* lex.yy.c */; };
-		6CD56C331EC9C2CC0011B279 /* y.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD56C301EC9C2CC0011B279 /* y.tab.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,14 +62,14 @@
 		6C1402171EC9806200376490 /* Mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mem.h; sourceTree = "<group>"; };
 		6C14021F1EC9859800376490 /* creator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = creator.c; sourceTree = "<group>"; };
 		6C2AAFA51EC598330019FF0C /* demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = demo; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C5DDE711ED6C4A100276C97 /* lex.enginx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lex.enginx.c; path = Lexer/lex.enginx.c; sourceTree = "<group>"; };
+		6C5DDE731ED6C66300276C97 /* enginx_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = enginx_parse.c; path = Lexer/enginx_parse.c; sourceTree = "<group>"; };
+		6C5DDE741ED6C66300276C97 /* enginx_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginx_parse.h; path = Lexer/enginx_parse.h; sourceTree = "<group>"; };
 		6CB563F51ECAB5D20081B24E /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		6CB563F61ECAE1640081B24E /* enginx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enginx.h; sourceTree = "<group>"; };
 		6CB563F81ECAE3C10081B24E /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
 		6CB563F91ECAE3C10081B24E /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
 		6CB563FB1ECAE5910081B24E /* enginx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = enginx.c; sourceTree = "<group>"; };
-		6CD56C2F1EC9C2CC0011B279 /* lex.yy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lex.yy.c; path = Lexer/lex.yy.c; sourceTree = "<group>"; };
-		6CD56C301EC9C2CC0011B279 /* y.tab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = y.tab.c; path = Lexer/y.tab.c; sourceTree = "<group>"; };
-		6CD56C311EC9C2CC0011B279 /* y.tab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = y.tab.h; path = Lexer/y.tab.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,10 +142,10 @@
 		6C2AAF9C1EC598330019FF0C = {
 			isa = PBXGroup;
 			children = (
+				6C5DDE731ED6C66300276C97 /* enginx_parse.c */,
+				6C5DDE741ED6C66300276C97 /* enginx_parse.h */,
+				6C5DDE711ED6C4A100276C97 /* lex.enginx.c */,
 				6CB563F71ECAE3C10081B24E /* http_parser */,
-				6CD56C2F1EC9C2CC0011B279 /* lex.yy.c */,
-				6CD56C301EC9C2CC0011B279 /* y.tab.c */,
-				6CD56C311EC9C2CC0011B279 /* y.tab.h */,
 				6C14021E1EC9859800376490 /* implements */,
 				6C1402151EC9806200376490 /* includes */,
 				6C1402121EC9805B00376490 /* test */,
@@ -251,9 +252,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C5DDE761ED6C68900276C97 /* enginx_parse.c in Sources */,
+				6C5DDE771ED6C68900276C97 /* enginx_parse.h in Sources */,
+				6C5DDE781ED6C68900276C97 /* lex.enginx.c in Sources */,
 				6C0549C31ED67F8E00D33733 /* http_parser.c in Sources */,
-				6C0549C41ED67F8E00D33733 /* lex.yy.c in Sources */,
-				6C0549C51ED67F8E00D33733 /* y.tab.c in Sources */,
 				6C0549C61ED67F8E00D33733 /* creator.c in Sources */,
 				6C0549C71ED67F8E00D33733 /* enginx.c in Sources */,
 				6C0549C81ED67F8E00D33733 /* memory.c in Sources */,
@@ -266,14 +268,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CD56C331EC9C2CC0011B279 /* y.tab.c in Sources */,
 				6C1402101EC9804900376490 /* memory.c in Sources */,
 				6CB563FC1ECAE5910081B24E /* enginx.c in Sources */,
+				6C5DDE751ED6C66300276C97 /* enginx_parse.c in Sources */,
 				6C1402141EC9805B00376490 /* demo.c in Sources */,
 				6CB563FA1ECAE3C10081B24E /* http_parser.c in Sources */,
+				6C5DDE721ED6C4A100276C97 /* lex.enginx.c in Sources */,
 				6C1402201EC9859800376490 /* creator.c in Sources */,
 				6C1402111EC9804900376490 /* storage.c in Sources */,
-				6CD56C321EC9C2CC0011B279 /* lex.yy.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -398,6 +401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;

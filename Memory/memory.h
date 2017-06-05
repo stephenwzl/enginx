@@ -1,3 +1,8 @@
+//
+//  Created by stephenw on 2017/5/12.
+//  Copyright © 2017年 stephenw.cc. All rights reserved.
+//
+
 #ifndef PRIVATE_MEM_H_INCLUDED
 #define PRIVATE_MEM_H_INCLUDED
 #include "Mem.h"

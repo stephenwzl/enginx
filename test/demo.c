@@ -12,6 +12,7 @@
 #include "enginx_dev.h"
 #include "Debug.h"
 #include "enginx.h"
+#include "time.h"
 
 int main() {
   ENGINX_INTERPRETER* inter =  enginx_create_interpreter();
@@ -25,10 +26,15 @@ int main() {
     }
   }
   debug_print_current_servers();
-  enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
-  char* decode = enginx_url_encode("http://ele.me#百度");
-//  enginx_url* url = enginx_url_create("https://google.com");
-//  printf("%s\n", enginx_get_request_uri(url));
-//  enginx_url_release(&url);
+  char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
+  printf("%s\n", rewrited);
+  clock_t start, finish;
+  start = clock();
+  for (int i = 0; i < 10000; ++i) {
+    char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
+    free(rewrited);
+  }
+  finish = clock();
+  printf("time consumed: %lf\n", (double)(finish - start)/CLOCKS_PER_SEC);
   return 0;
 }

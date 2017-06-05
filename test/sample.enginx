@@ -3,10 +3,12 @@ server {
   scheme: "https";
   port: "443";
 
-  location "/" {
-    encode $query_string;
+  location "/api/router" {
     match $path "^/api/(.*)$";
-    return "https://h5.ele.me";
+    parse $query_string;
+    var $sb "hello_this_is_enginx_2_0";
+    encode $sb;
+    return "https://h5.ele.me$path$path/$#foo/$1$1$1/$0*$0*$0$sb";
   }
   location "/shop/?" {
     return "https://h5.ele.me";
@@ -19,7 +21,7 @@ server {
   port: "443";
 
   location "/" {
-    if (equal "scheme" "http") {
+    if (equal "scheme" null) {
       encode $xxx;
       decode $xxxx;
       return "https://ele.me";

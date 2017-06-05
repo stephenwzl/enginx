@@ -2,8 +2,8 @@
   #include <stdio.h>
   #include "enginx_dev.h"
   #define YYDEBUG 1
-  int yylex();
-  void yyerror(const char *s);
+  int enginxlex();
+  void enginxerror(const char *s);
 %}
 
 %union {
@@ -17,7 +17,7 @@
   ENGINX_EXPRESSION       *expression;
   ENGINX_BLOCK            *block;
 }
-%token <argument> STRING_LITERAL IDENTIFIER
+%token <argument> STRING_LITERAL IDENTIFIER NULL_VALUE
 %token SERVER DOMAIN PORT LOCATION LP RP LC RC
 SEMICOLON COLON IF ENCODE DECODE RETURN MATCH PARSE DEFINE
 GREATER EQUAL SMALLER SCHEME
@@ -157,8 +157,13 @@ argument_list
 {
   $$ = enginx_create_argument_list($1);
 }
+| NULL_VALUE
+{
+  $$ = enginx_create_argument_list($1);
+}
 | argument_list STRING_LITERAL
 | argument_list IDENTIFIER
+| argument_list NULL_VALUE
 {
   $$ = enginx_chain_argument_list($1, $2);
 }
