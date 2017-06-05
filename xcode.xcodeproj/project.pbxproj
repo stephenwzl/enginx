@@ -12,17 +12,16 @@
 		6C0549C31ED67F8E00D33733 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563F81ECAE3C10081B24E /* http_parser.c */; };
 		6C0549C61ED67F8E00D33733 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14021F1EC9859800376490 /* creator.c */; };
 		6C0549C71ED67F8E00D33733 /* enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563FB1ECAE5910081B24E /* enginx.c */; };
-		6C0549C81ED67F8E00D33733 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; settings = {COMPILER_FLAGS = "-W"; }; };
+		6C0549C81ED67F8E00D33733 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6C0549C91ED67F8E00D33733 /* storage.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020E1EC9804900376490 /* storage.c */; };
-		6C1402101EC9804900376490 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; };
+		6C1402101EC9804900376490 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6C1402111EC9804900376490 /* storage.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020E1EC9804900376490 /* storage.c */; };
 		6C1402141EC9805B00376490 /* demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C1402131EC9805B00376490 /* demo.c */; };
 		6C1402201EC9859800376490 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14021F1EC9859800376490 /* creator.c */; };
-		6C5DDE721ED6C4A100276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; };
-		6C5DDE751ED6C66300276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; };
-		6C5DDE761ED6C68900276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; };
-		6C5DDE771ED6C68900276C97 /* enginx_parse.h in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE741ED6C66300276C97 /* enginx_parse.h */; };
-		6C5DDE781ED6C68900276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; };
+		6C5DDE721ED6C4A100276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		6C5DDE751ED6C66300276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		6C5DDE761ED6C68900276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		6C5DDE781ED6C68900276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6CB563FA1ECAE3C10081B24E /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563F81ECAE3C10081B24E /* http_parser.c */; };
 		6CB563FC1ECAE5910081B24E /* enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563FB1ECAE5910081B24E /* enginx.c */; };
 /* End PBXBuildFile section */
@@ -253,7 +252,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C5DDE761ED6C68900276C97 /* enginx_parse.c in Sources */,
-				6C5DDE771ED6C68900276C97 /* enginx_parse.h in Sources */,
 				6C5DDE781ED6C68900276C97 /* lex.enginx.c in Sources */,
 				6C0549C31ED67F8E00D33733 /* http_parser.c in Sources */,
 				6C0549C61ED67F8E00D33733 /* creator.c in Sources */,
