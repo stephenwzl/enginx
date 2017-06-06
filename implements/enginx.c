@@ -322,6 +322,8 @@ char* enginx_exec_location_statements(ENGINX_LOCATION* location, enginx_url* url
   for (state_list = location->location_statements; state_list; state_list = state_list->next) {
     char* return_val = enginx_exec_statements(state_list->statement, global_variables, internal_variables);
     if (return_val != NULL) {
+      enginx_release_dictionary(global_variables);
+      enginx_release_dictionary(internal_variables);
       return return_val;
     }
   }
@@ -473,7 +475,9 @@ void enginx_release_dictionary(enginx_dictionary* dict)
     free(pos->value);
     pos->key = NULL;
     pos->value = NULL;
-    pos = pos->next;
+    enginx_dictionary* temp = pos->next;
+    free(pos);
+    pos = temp;
   }
 }
 
@@ -556,6 +560,7 @@ char* enginx_exec_expression(ENGINX_EXPRESSION* expression,
         regmatch_t matchGroups[10];
         if (regcomp(&regexCompiled, second_arg->u.string_value, REG_EXTENDED)) {
           //invalid regex string
+          regfree(&regexCompiled);
           break;
         }
         if (regexec(&regexCompiled, val, 10, matchGroups, 0) == 0) {
@@ -580,6 +585,7 @@ char* enginx_exec_expression(ENGINX_EXPRESSION* expression,
             free(key);
           }
         }
+        regfree(&regexCompiled);
       }
       break;
     }
@@ -592,6 +598,7 @@ char* enginx_exec_expression(ENGINX_EXPRESSION* expression,
       char* key = expression->list->value->u.string_value;
       char* value = enginx_compile_string_template(expression->list->next->value->u.string_value, global_values, internal_variables);
       enginx_set_value_for_key(internal_variables, key, value);
+      free(value);
       break;
     }
     case PARSE_EXPRESSION:
@@ -671,16 +678,18 @@ char* enginx_compile_string_template(char* str_template, enginx_dictionary* glob
     char* key = dic->key;
     char* compiled_str = enginx_replace_str(return_str, key, dic->value);
     if (compiled_str) {
-      free(return_str);
-      return_str = compiled_str;
+      return_str = (char*)realloc(return_str, strlen(compiled_str) + 1);
+      strcpy(return_str, compiled_str);
+      free(compiled_str);
     }
   }
   for (dic = internal_values; dic; dic = dic->next) {
     char* key = dic->key;
     char* compiled_str = enginx_replace_str(return_str, key, dic->value);
     if (compiled_str) {
-      free(return_str);
-      return_str = compiled_str;
+      return_str = (char*)realloc(return_str, strlen(compiled_str) + 1);
+      strcpy(return_str, compiled_str);
+      free(compiled_str);
     }
   }
   return return_str;

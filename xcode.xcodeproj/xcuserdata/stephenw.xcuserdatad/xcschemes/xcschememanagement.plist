@@ -14,6 +14,21 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>enginxiOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>iOSDemo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>libenginxCocoa.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>xcode.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +48,26 @@
 			<true/>
 		</dict>
 		<key>6C2AAFA41EC598330019FF0C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6C8343F71EE6B9060056EA52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6C8344111EE6BA1E0056EA52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6C8C95091EE6973100911217</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6C8EF53B1EE6BAC000FA4503</key>
 		<dict>
 			<key>primary</key>
 			<true/>
