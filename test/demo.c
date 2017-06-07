@@ -17,7 +17,9 @@
 int main() {
   ENGINX_INTERPRETER* inter =  enginx_create_interpreter();
   enginx_set_current_interpreter(inter);
-  FILE *fp = fopen("/Users/stephenw/Desktop/enginx/test/sample.enginx", "r");
+  //change your sample file path here
+  char* sampleFilePath = "/Users/stephenw/Desktop/enginx/test/sample.enginx";
+  FILE *fp = fopen(sampleFilePath, "r");
   if (fp) {
     if (enginx_compile_file(inter, fp)) {
       enginx_compile_error* error = enginx_get_current_error();

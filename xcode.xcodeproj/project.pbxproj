@@ -30,6 +30,7 @@
 		6C1402111EC9804900376490 /* storage.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020E1EC9804900376490 /* storage.c */; };
 		6C1402141EC9805B00376490 /* demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C1402131EC9805B00376490 /* demo.c */; };
 		6C1402201EC9859800376490 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14021F1EC9859800376490 /* creator.c */; };
+		6C554D2F1EE7A08100198D5B /* sample.enginx in Resources */ = {isa = PBXBuildFile; fileRef = 6C554D2E1EE7A08100198D5B /* sample.enginx */; };
 		6C5DDE721ED6C4A100276C97 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6C5DDE751ED6C66300276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6C5DDE761ED6C68900276C97 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -55,16 +56,14 @@
 		6C8EF5541EE6BAF100FA4503 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CB563F51ECAB5D20081B24E /* Debug.h */; };
 		6C8EF5551EE6BAF100FA4503 /* enginx.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CB563F61ECAE1640081B24E /* enginx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C8EF5561EE6BAF100FA4503 /* memory.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C14020D1EC9804900376490 /* memory.h */; };
-		6C8EF5571EE6BB2200FA4503 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; };
-		6C8EF5581EE6BB2200FA4503 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; };
+		6C8EF5571EE6BB2200FA4503 /* enginx_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE731ED6C66300276C97 /* enginx_parse.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		6C8EF5581EE6BB2200FA4503 /* lex.enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C5DDE711ED6C4A100276C97 /* lex.enginx.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6C8EF5591EE6BB2200FA4503 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563F81ECAE3C10081B24E /* http_parser.c */; };
 		6C8EF55A1EE6BB2200FA4503 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14021F1EC9859800376490 /* creator.c */; };
 		6C8EF55B1EE6BB2200FA4503 /* enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563FB1ECAE5910081B24E /* enginx.c */; };
-		6C8EF55C1EE6BB2200FA4503 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; };
+		6C8EF55C1EE6BB2200FA4503 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020C1EC9804900376490 /* memory.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6C8EF55D1EE6BB2200FA4503 /* storage.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C14020E1EC9804900376490 /* storage.c */; };
 		6C8EF55E1EE6BB5C00FA4503 /* enginxiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8EF53C1EE6BAC000FA4503 /* enginxiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6C8EF5601EE6BBB400FA4503 /* sample.enginx in Resources */ = {isa = PBXBuildFile; fileRef = 6C8EF55F1EE6BBB400FA4503 /* sample.enginx */; };
-		6C8EF5611EE6BCEB00FA4503 /* sample.enginx in Resources */ = {isa = PBXBuildFile; fileRef = 6C8EF55F1EE6BBB400FA4503 /* sample.enginx */; };
 		6CB563FA1ECAE3C10081B24E /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563F81ECAE3C10081B24E /* http_parser.c */; };
 		6CB563FC1ECAE5910081B24E /* enginx.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CB563FB1ECAE5910081B24E /* enginx.c */; };
 /* End PBXBuildFile section */
@@ -122,6 +121,7 @@
 		6C1402171EC9806200376490 /* Mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mem.h; sourceTree = "<group>"; };
 		6C14021F1EC9859800376490 /* creator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = creator.c; sourceTree = "<group>"; };
 		6C2AAFA51EC598330019FF0C /* demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = demo; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C554D2E1EE7A08100198D5B /* sample.enginx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sample.enginx; path = test/sample.enginx; sourceTree = SOURCE_ROOT; };
 		6C5DDE711ED6C4A100276C97 /* lex.enginx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lex.enginx.c; path = Lexer/lex.enginx.c; sourceTree = "<group>"; };
 		6C5DDE731ED6C66300276C97 /* enginx_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = enginx_parse.c; path = Lexer/enginx_parse.c; sourceTree = "<group>"; };
 		6C5DDE741ED6C66300276C97 /* enginx_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enginx_parse.h; path = Lexer/enginx_parse.h; sourceTree = "<group>"; };
@@ -138,7 +138,6 @@
 		6C8EF53C1EE6BAC000FA4503 /* enginxiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = enginxiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C8EF53E1EE6BAC000FA4503 /* enginxiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = enginxiOS.h; sourceTree = "<group>"; };
 		6C8EF53F1EE6BAC000FA4503 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C8EF55F1EE6BBB400FA4503 /* sample.enginx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample.enginx; sourceTree = "<group>"; };
 		6CB563F51ECAB5D20081B24E /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		6CB563F61ECAE1640081B24E /* enginx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enginx.h; sourceTree = "<group>"; };
 		6CB563F81ECAE3C10081B24E /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
@@ -228,9 +227,7 @@
 		6C2AAF9C1EC598330019FF0C = {
 			isa = PBXGroup;
 			children = (
-				6C5DDE731ED6C66300276C97 /* enginx_parse.c */,
-				6C5DDE741ED6C66300276C97 /* enginx_parse.h */,
-				6C5DDE711ED6C4A100276C97 /* lex.enginx.c */,
+				6C554D301EE7A19D00198D5B /* lexer */,
 				6CB563F71ECAE3C10081B24E /* http_parser */,
 				6C14021E1EC9859800376490 /* implements */,
 				6C1402151EC9806200376490 /* includes */,
@@ -254,9 +251,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6C554D301EE7A19D00198D5B /* lexer */ = {
+			isa = PBXGroup;
+			children = (
+				6C5DDE731ED6C66300276C97 /* enginx_parse.c */,
+				6C5DDE741ED6C66300276C97 /* enginx_parse.h */,
+				6C5DDE711ED6C4A100276C97 /* lex.enginx.c */,
+			);
+			name = lexer;
+			sourceTree = "<group>";
+		};
 		6C8344131EE6BA1E0056EA52 /* iOSDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6C554D2E1EE7A08100198D5B /* sample.enginx */,
 				6C8344171EE6BA1E0056EA52 /* AppDelegate.h */,
 				6C8344181EE6BA1E0056EA52 /* AppDelegate.m */,
 				6C83441A1EE6BA1E0056EA52 /* ViewController.h */,
@@ -281,7 +289,6 @@
 		6C8EF53D1EE6BAC000FA4503 /* enginxiOS */ = {
 			isa = PBXGroup;
 			children = (
-				6C8EF55F1EE6BBB400FA4503 /* sample.enginx */,
 				6C8EF53E1EE6BAC000FA4503 /* enginxiOS.h */,
 				6C8EF53F1EE6BAC000FA4503 /* Info.plist */,
 			);
@@ -462,9 +469,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C8EF5611EE6BCEB00FA4503 /* sample.enginx in Resources */,
 				6C8344241EE6BA1E0056EA52 /* LaunchScreen.storyboard in Resources */,
 				6C8344211EE6BA1E0056EA52 /* Assets.xcassets in Resources */,
+				6C554D2F1EE7A08100198D5B /* sample.enginx in Resources */,
 				6C83441F1EE6BA1E0056EA52 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,7 +480,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C8EF5601EE6BBB400FA4503 /* sample.enginx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +888,7 @@
 				6C8EF5471EE6BAC000FA4503 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
