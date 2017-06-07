@@ -6,8 +6,7 @@ server {
   location "/api/router" {
     match $path "^/api/(.*)$";
     parse $query_string;
-    var $sb "hello_this_is#_enginx_2_0";
-    encode $sb;
+    var $sb "100";
     return "https://h5.ele.me$path$path/$#foo/$1$1$1/$0*$0*$0$sb";
   }
   location "/shop/?" {
@@ -21,10 +20,8 @@ server {
   port: "443";
 
   location "/" {
-    if (equal "scheme" null) {
-      encode $xxx;
-      decode $xxxx;
-      return "https://ele.me";
+    if (equal $scheme "https") {
+      return "https://help.ele.me";
     }
     return "https://h5.ele.me";
   }

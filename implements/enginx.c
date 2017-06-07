@@ -624,7 +624,66 @@ char* enginx_exec_if_statement(ENGINX_IF_STATMENT* if_statement,
                                enginx_dictionary* global_values,
                                enginx_dictionary* internal_values)
 {
+  char* arg1 = NULL;
+  char* arg2 = NULL;
   
+  ENGINX_ARGUMENT_LIST* argument_list = if_statement->condition->list;
+  if (argument_list->value->type != ENGINX_NULL_VALUE) {
+    arg1 = argument_list->value->u.string_value;
+  }
+  ENGINX_ARGUMENT_LIST* second = argument_list->next;
+  if (second != NULL && second->value->type != ENGINX_NULL_VALUE) {
+    arg2 = second->value->u.string_value;
+  }
+  int result = 0;
+  if (arg1 == NULL && arg2 != NULL) {
+    result = -1;
+  } else if (arg1 != NULL && arg2 == NULL) {
+    result = 1;
+  } else if (arg1 == NULL && arg2 == NULL) {
+    result = -2;
+  }
+  int shouldContinue = 0;
+  switch (if_statement->condition->type) {
+    case EQUAL_EXPRESSION:
+    {
+      if (result == -2) {
+        shouldContinue = 1;
+      } else if (result == 0) {
+        shouldContinue = strcmp(arg1, arg2) == 0;
+      }
+      break;
+    }
+    case GREATER_EXPRESSION:
+    {
+      if (result == 1) {
+        shouldContinue = 1;
+      } else if (result == 0) {
+        shouldContinue = strcmp(arg1, arg2) > 0;
+      }
+      break;
+    }
+    case SMALLER_EXPRESSION:
+    {
+      if (result == -1) {
+        shouldContinue = 1;
+      } else if (result == 0) {
+        shouldContinue = strcmp(arg1, arg2) < 0;
+      }
+      break;
+    }
+    default:
+      break;
+  }
+  if (shouldContinue) {
+    ENGINX_STATEMENT_LIST* state_list;
+    for (state_list = if_statement->then_block->statement_list; state_list; state_list = state_list->next) {
+      char* return_val = enginx_exec_statements(state_list->statement, global_values, internal_values);
+      if (return_val != NULL) {
+        return return_val;
+      }
+    }
+  }
   return NULL;
 }
 
