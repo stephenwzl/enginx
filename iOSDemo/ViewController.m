@@ -30,6 +30,8 @@
   char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
   printf("%s\n", rewrited);
   free(rewrited);
+  rewrited = enginx_rewrite_url("https://ele.me");
+  printf("%s\n", rewrited);
 }
 
 

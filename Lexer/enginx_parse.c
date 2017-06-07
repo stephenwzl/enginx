@@ -486,7 +486,7 @@ static const yytype_uint8 yyrline[] =
        0,    35,    35,    36,    43,    50,    51,    57,    63,    67,
       72,    76,    79,    85,    86,    87,    88,    89,    90,    91,
       94,    98,   102,   108,   115,   122,   129,   137,   144,   152,
-     156,   160,   164,   165,   166,   172,   176
+     156,   160,   164,   168,   172,   178,   182
 };
 #endif
 
@@ -1443,77 +1443,77 @@ yyreduce:
     {
   ENGINX_INTERPRETER* inter = enginx_get_current_interpreter();
   inter->server_list = enginx_chain_server((yyvsp[(1) - (2)].server_list), (yyvsp[(2) - (2)].server_list));
-}
+;}
     break;
 
   case 4:
 #line 44 "enginx.y"
     {
   (yyval.server_list) = enginx_create_server((yyvsp[(5) - (16)].argument), (yyvsp[(9) - (16)].argument), enginx_value_to_integer((yyvsp[(13) - (16)].argument)), (yyvsp[(15) - (16)].locations_list));
-}
+;}
     break;
 
   case 6:
 #line 52 "enginx.y"
     {
   (yyval.locations_list) = enginx_chain_location((yyvsp[(1) - (2)].locations_list), (yyvsp[(2) - (2)].locations_list));
-}
+;}
     break;
 
   case 7:
 #line 58 "enginx.y"
     {
   (yyval.locations_list) = enginx_create_location((yyvsp[(2) - (5)].argument), (yyvsp[(4) - (5)].statement_list));
-}
+;}
     break;
 
   case 8:
 #line 64 "enginx.y"
     {
   (yyval.statement_list) = enginx_create_statement_list((yyvsp[(1) - (1)].statement));
-}
+;}
     break;
 
   case 9:
 #line 68 "enginx.y"
     {
   (yyval.statement_list) = enginx_chain_statement_list((yyvsp[(1) - (2)].statement_list), (yyvsp[(2) - (2)].statement));
-}
+;}
     break;
 
   case 10:
 #line 73 "enginx.y"
     {
   (yyval.statement) = enginx_create_normal_statement((yyvsp[(1) - (2)].expression));
-}
+;}
     break;
 
   case 12:
 #line 80 "enginx.y"
     {
   (yyval.statement) = enginx_create_if_statement((yyvsp[(3) - (5)].expression), (yyvsp[(5) - (5)].block));
-}
+;}
     break;
 
   case 20:
 #line 95 "enginx.y"
     {
   (yyval.expression) = enginx_create_expression(GREATER_EXPRESSION, (yyvsp[(2) - (2)].argument_list));
-}
+;}
     break;
 
   case 21:
 #line 99 "enginx.y"
     {
   (yyval.expression) = enginx_create_expression(SMALLER_EXPRESSION, (yyvsp[(2) - (2)].argument_list));
-}
+;}
     break;
 
   case 22:
 #line 103 "enginx.y"
     {
   (yyval.expression) = enginx_create_expression(EQUAL_EXPRESSION, (yyvsp[(2) - (2)].argument_list));
-}
+;}
     break;
 
   case 23:
@@ -1521,7 +1521,7 @@ yyreduce:
     {
   ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list((yyvsp[(2) - (2)].argument));
   (yyval.expression) = enginx_create_expression(ENCODE_EXPRESSION, list);
-}
+;}
     break;
 
   case 24:
@@ -1529,7 +1529,7 @@ yyreduce:
     {
   ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list((yyvsp[(2) - (2)].argument));
   (yyval.expression) = enginx_create_expression(DECODE_EXPRESSION, list);
-}
+;}
     break;
 
   case 25:
@@ -1537,7 +1537,7 @@ yyreduce:
     {
   ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list((yyvsp[(2) - (2)].argument));
   (yyval.expression) = enginx_create_expression(RETURN_EXPRESSION, list);
-}
+;}
     break;
 
   case 26:
@@ -1546,7 +1546,7 @@ yyreduce:
   ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list((yyvsp[(2) - (3)].argument));
   list = enginx_chain_argument_list(list, (yyvsp[(3) - (3)].argument));
   (yyval.expression) = enginx_create_expression(MATCH_EXPRESSION, list);
-}
+;}
     break;
 
   case 27:
@@ -1554,7 +1554,7 @@ yyreduce:
     {
   ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list((yyvsp[(2) - (2)].argument));
   (yyval.expression) = enginx_create_expression(PARSE_EXPRESSION, list);
-}
+;}
     break;
 
   case 28:
@@ -1563,54 +1563,68 @@ yyreduce:
   ENGINX_ARGUMENT_LIST* list = enginx_create_argument_list((yyvsp[(2) - (3)].argument));
   list = enginx_chain_argument_list(list, (yyvsp[(3) - (3)].argument));
   (yyval.expression) = enginx_create_expression(DEFINE_EXPRESSION, list);
-}
+;}
     break;
 
   case 29:
 #line 153 "enginx.y"
     {
   (yyval.argument_list) = enginx_create_argument_list((yyvsp[(1) - (1)].argument));
-}
+;}
     break;
 
   case 30:
 #line 157 "enginx.y"
     {
   (yyval.argument_list) = enginx_create_argument_list((yyvsp[(1) - (1)].argument));
-}
+;}
     break;
 
   case 31:
 #line 161 "enginx.y"
     {
   (yyval.argument_list) = enginx_create_argument_list((yyvsp[(1) - (1)].argument));
-}
+;}
+    break;
+
+  case 32:
+#line 165 "enginx.y"
+    {
+  (yyval.argument_list) = enginx_chain_argument_list((yyvsp[(1) - (2)].argument_list), (yyvsp[(2) - (2)].argument));
+;}
+    break;
+
+  case 33:
+#line 169 "enginx.y"
+    {
+  (yyval.argument_list) = enginx_chain_argument_list((yyvsp[(1) - (2)].argument_list), (yyvsp[(2) - (2)].argument));
+;}
     break;
 
   case 34:
-#line 167 "enginx.y"
+#line 173 "enginx.y"
     {
   (yyval.argument_list) = enginx_chain_argument_list((yyvsp[(1) - (2)].argument_list), (yyvsp[(2) - (2)].argument));
-}
+;}
     break;
 
   case 35:
-#line 173 "enginx.y"
+#line 179 "enginx.y"
     {
   (yyval.block) = enginx_create_block((yyvsp[(2) - (3)].statement_list));
-}
+;}
     break;
 
   case 36:
-#line 177 "enginx.y"
+#line 183 "enginx.y"
     {
   (yyval.block) = enginx_create_block(NULL);
-}
+;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1614 "enginx_parse.c"
+#line 1628 "enginx_parse.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1824,6 +1838,6 @@ yyreturn:
 }
 
 
-#line 181 "enginx.y"
+#line 187 "enginx.y"
 
 

@@ -630,10 +630,24 @@ char* enginx_exec_if_statement(ENGINX_IF_STATMENT* if_statement,
   ENGINX_ARGUMENT_LIST* argument_list = if_statement->condition->list;
   if (argument_list->value->type != ENGINX_NULL_VALUE) {
     arg1 = argument_list->value->u.string_value;
+    if (argument_list->value->type == ENGINX_IDENTIFIER_VALUE) {
+      char* key = arg1;
+      arg1 = enginx_value_for_key(global_values, key);
+      if (arg1 == NULL) {
+        arg1 = enginx_value_for_key(internal_values, key);
+      }
+    }
   }
   ENGINX_ARGUMENT_LIST* second = argument_list->next;
   if (second != NULL && second->value->type != ENGINX_NULL_VALUE) {
     arg2 = second->value->u.string_value;
+    if (second->value->type == ENGINX_IDENTIFIER_VALUE) {
+      char* key = arg2;
+      arg2 = enginx_value_for_key(global_values, key);
+      if (arg2 == NULL) {
+        arg2 = enginx_value_for_key(internal_values, key);
+      }
+    }
   }
   int result = 0;
   if (arg1 == NULL && arg2 != NULL) {

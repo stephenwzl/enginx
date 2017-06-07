@@ -116,7 +116,7 @@ ENGINX_ARGUMENT_LIST* enginx_chain_argument_list(ENGINX_ARGUMENT_LIST* alist, EN
   ENGINX_ARGUMENT_LIST *pos;
   for (pos = alist; pos->next; pos = pos->next);
   pos->next = enginx_create_argument_list(value);
-  return pos;
+  return alist;
 }
 
 ENGINX_STATEMENT* enginx_create_normal_statement(ENGINX_EXPRESSION* expression)

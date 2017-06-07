@@ -28,18 +28,18 @@ int main() {
       enginx_compile_error_release(&error);
     }
   }
-//  debug_print_current_servers();
-//  char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
-//  printf("%s\n", rewrited);
-  char* rewrited = enginx_rewrite_url("https://ele.me");
+  debug_print_current_servers();
+  char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
   printf("%s\n", rewrited);
-//  clock_t start, finish;
-//  start = clock();
-//  for (int i = 0; i < 10000; ++i) {
-//    char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
-//    free(rewrited);
-//  }
-//  finish = clock();
-//  printf("time consumed: %lf\n", (double)(finish - start)/CLOCKS_PER_SEC);
+  rewrited = enginx_rewrite_url("https://ele.me");
+  printf("%s\n", rewrited);
+  clock_t start, finish;
+  start = clock();
+  for (int i = 0; i < 10000; ++i) {
+    char* rewrited = enginx_rewrite_url("https://google.com/api/router?hello=world&foo=bar&foo2=bar2");
+    free(rewrited);
+  }
+  finish = clock();
+  printf("time consumed: %lf\n", (double)(finish - start)/CLOCKS_PER_SEC);
   return 0;
 }

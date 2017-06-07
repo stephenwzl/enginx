@@ -162,7 +162,13 @@ argument_list
   $$ = enginx_create_argument_list($1);
 }
 | argument_list STRING_LITERAL
+{
+  $$ = enginx_chain_argument_list($1, $2);
+}
 | argument_list IDENTIFIER
+{
+  $$ = enginx_chain_argument_list($1, $2);
+}
 | argument_list NULL_VALUE
 {
   $$ = enginx_chain_argument_list($1, $2);
