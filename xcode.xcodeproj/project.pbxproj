@@ -177,13 +177,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C0549BB1ED67F6C00D33733 /* enginxCocoa */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = enginxCocoa;
-			sourceTree = "<group>";
-		};
 		6C14020A1EC9804900376490 /* memory */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,7 +226,6 @@
 				6C1402151EC9806200376490 /* includes */,
 				6C1402121EC9805B00376490 /* test */,
 				6C14020A1EC9804900376490 /* memory */,
-				6C0549BB1ED67F6C00D33733 /* enginxCocoa */,
 				6C8344131EE6BA1E0056EA52 /* iOSDemo */,
 				6C8EF53D1EE6BAC000FA4503 /* enginxiOS */,
 				6C2AAFA61EC598330019FF0C /* Products */,
