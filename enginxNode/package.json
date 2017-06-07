@@ -1,0 +1,22 @@
+{
+  "name": "enginx-nodejs",
+  "version": "2.0.0",
+  "description": "enginx 2.0 version",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenwzl/enginx.git"
+  },
+  "keywords": [
+    "enginx"
+  ],
+  "author": "stephenwzl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephenwzl/enginx/issues"
+  },
+  "homepage": "https://github.com/stephenwzl/enginx#readme"
+}

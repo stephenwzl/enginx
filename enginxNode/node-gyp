@@ -1,0 +1,8 @@
+{
+  "targets": [
+    {
+      "target_name": "enginxNode",
+      "sources": ['enginxNode.cpp', '../http_parser/http_parser.c', '../implements/creator.c', '../implements/enginx.c', '../Lexer/enginx_parse.c', '../Lexer/lex.enginx.c', '../memory/memory.c', '../memory/storage.c']
+    }
+  ]
+}
