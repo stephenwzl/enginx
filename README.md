@@ -7,7 +7,7 @@ enginX
 * install for iOS  
 
 ```ruby
-pod 'enginx', :git => 'https://github.com/stephenwzl/enginx'
+pod 'enginx', '~> 2.0'
 ```	  
 
 * install for Android  
