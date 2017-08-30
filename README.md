@@ -34,7 +34,7 @@ server {
   port: "443";
   location "/user" {
     match $path "^/user/(.*)$";
-    //$1 is the variable of "9527"
+    # $1 is the variable of "9527"
     return "google://user?id=$1";
   }
 }
