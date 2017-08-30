@@ -20,16 +20,16 @@ enginx Document
 ## installation  
 
 ### iOS via Cocoapods 
-```
+```ruby
 pod 'enginx', '~> 2.0'
 ```  
 ### Android 
-```
+```groovy
 compile 'cc.stephenw.enginxandroid:enginxandroid:2.0.1'
 ```
 
 ### Node.js  
-```
+```shell
 npm install -s enginx-nodejs@2.0.0
 ``` 
 
@@ -54,7 +54,7 @@ server {
 
 * for iOS
 
-```
+```c
 char* config = ...;
 enginx_load_config_string(config);
 
@@ -74,7 +74,7 @@ free(rewrited_url_string);
 
 * for Android 
 
-```
+```java
 String config = ...; //load config from network, file, etc..
 String errorMessage = EnginxAndroid.loadConfig(config);
 if (!errorMessage.isEmpty()) {
@@ -86,7 +86,7 @@ String url = EnginxAndroid.rewriteURL(...);
 
 * for Node.js (server side)
 
-```
+```javascript
 const enginx = require('enginx-nodejs')
 
 //you can catch config error here
@@ -126,19 +126,19 @@ location is a scope contains instructions for matched path.
 ## instruction
 
 * encode/decode  
-`encode/decode [variable]`
+`encode/decode [variable]`  
 do url encode/decode with global or interal variables.
 
 * match   
-`match [variable] [regex string]`
+`match [variable] [regex string]`  
 use regex string to extract variables from variables, `$0` is the full match, match groups are stored with name `$n`, `n` stands for the n-th one.
 
 * parse  
-`parse [variable]`
+`parse [variable]`  
 parse variable in query param format, such as the `$fragment` is string foo=bar, parse `$fragment` will store `$#foo` as key, `bar` as the value in temp variable. 
 
 * var  
-`var [variable name] [string template]`
+`var [variable name] [string template]`  
 `var` defines variable from string template, then you can access this variable with `$variable_name`. 
 
 ## variable
