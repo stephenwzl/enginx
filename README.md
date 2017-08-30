@@ -1,5 +1,16 @@
 enginx Document
 ---
+[![Build Status](https://travis-ci.org/stephenwzl/enginx.svg?branch=master)](https://travis-ci.org/stephenwzl/enginx) [![CocoaPods](https://img.shields.io/cocoapods/v/enginx.svg)](https://github.com/stephenwzl/enginx)  [![npm version](https://badge.fury.io/js/enginx-nodejs.svg)](https://www.npmjs.com/package/enginx-nodejs)    
+
+**Cocoapods**:  
+[![CocoaPods](https://img.shields.io/cocoapods/dt/enginx.svg)]()
+
+**npm**:   
+[![npm](https://img.shields.io/npm/dt/enginx-nodejs.svg)](https://github.com/stephenwzl/enginx)
+
+**maven**:  
+[![Download](https://api.bintray.com/packages/stephenw/maven/enginxAndroid/images/download.svg) ](https://bintray.com/stephenw/maven/enginxAndroid/_latestVersion)
+
 **version**: 2.0  
 **config file format**: enginx DSL  
 **platform**: Android, iOS, Node.js   
